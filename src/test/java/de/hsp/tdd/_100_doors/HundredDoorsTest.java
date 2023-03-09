@@ -39,12 +39,11 @@ class HundredDoorsTest {
   @Test
   void second_pass_closes_every_even_door() {
     HundredDoors run = new HundredDoors().run(2);
-    Collection<Door> doors = run.getDoors();
 
     assertAll(
         () -> assertEquals(50, run.countOpenDoors(), "50 doors should be open"),
-        () -> assertTrue(doors.stream().filter(d -> d.getNumber() % 2 == 0).noneMatch(Door::isOpen), "each even door should be open"),
-        () -> assertTrue(doors.stream().filter(d -> d.getNumber() % 2 != 0).allMatch(Door::isOpen), "each uneven door should be closed")
+        () -> assertTrue(run.getDoors(d -> d.getNumber() % 2 == 0).stream().noneMatch(Door::isOpen), "each even door should be open"),
+        () -> assertTrue(run.getDoors(d -> d.getNumber() % 2 != 0).stream().allMatch(Door::isOpen), "each uneven door should be closed")
     );
   }
 
@@ -58,11 +57,11 @@ class HundredDoorsTest {
         .getDoors().stream()
         .collect(Collectors.toMap(Door::getNumber, Door::isOpen));
 
-    Collection<Door> doors = new HundredDoors().run(3).getDoors();
+    HundredDoors run = new HundredDoors().run(3);
 
     assertAll(
-        () -> assertTrue(doors.stream().filter(d -> d.getNumber() % 3 != 0).allMatch(d -> d.isOpen() == doorsAfterSecondRun.get(d.getNumber())), "No door with a number undivisable by three has been toggled"),
-        () -> assertTrue(doors.stream().filter(d -> d.getNumber() % 3 == 0).allMatch(d -> d.isOpen() != doorsAfterSecondRun.get(d.getNumber())), "Every third door has been toggled")
+        () -> assertTrue(run.getDoors(d -> d.getNumber() % 3 != 0).stream().allMatch(d -> d.isOpen() == doorsAfterSecondRun.get(d.getNumber())), "No door with a number undivisable by three has been toggled"),
+        () -> assertTrue(run.getDoors(d -> d.getNumber() % 3 == 0).stream().allMatch(d -> d.isOpen() != doorsAfterSecondRun.get(d.getNumber())), "Every third door has been toggled")
     );
   }
 }

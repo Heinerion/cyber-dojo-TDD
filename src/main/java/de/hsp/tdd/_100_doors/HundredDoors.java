@@ -1,6 +1,8 @@
 package de.hsp.tdd._100_doors;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class HundredDoors {
   private static final int MAX_NUMBER = 100;
@@ -33,6 +35,11 @@ public class HundredDoors {
   }
 
   public Collection<Door> getDoors() {
-    return doors;
+    return Collections.unmodifiableList(doors);
   }
+
+  public Collection<Door> getDoors(Predicate<Door> filter) {
+    return doors.stream().filter(filter).collect(Collectors.toList());
+  }
+
 }
