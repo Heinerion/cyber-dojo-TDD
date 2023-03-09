@@ -26,7 +26,7 @@ public class HundredDoors {
     return this;
   }
 
-  public List<Door> getDoors() {
+  public Collection<Door> getDoors() {
     return doors;
   }
 }

@@ -2,7 +2,7 @@ package de.hsp.tdd._100_doors;
 
 import org.junit.jupiter.api.*;
 
-import java.util.List;
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +14,7 @@ class HundredDoorsTest {
   @Test
   void all_doors_are_initially_closed() {
     HundredDoors hundredDoors = new HundredDoors();
-    List<Door> doors = hundredDoors.getDoors();
+    Collection<Door> doors = hundredDoors.getDoors();
 
     assertAll(
         () -> assertEquals(0, hundredDoors.countOpenDoors()),
@@ -38,7 +38,7 @@ class HundredDoorsTest {
   @Test
   void second_pass_closes_every_even_door() {
     HundredDoors run = new HundredDoors().run(2);
-    List<Door> doors = run.getDoors();
+    Collection<Door> doors = run.getDoors();
 
     assertAll(
         () -> assertEquals(50, run.countOpenDoors(), "50 doors should be open"),
