@@ -13,4 +13,13 @@ class HundredDoorsTest {
   void all_doors_are_initially_closed() {
     assertEquals(0, new HundredDoors().countOpenDoors());
   }
+
+  /**
+   * The first time through, you visit every door and toggle the door (if the door is closed, you open it; if it is
+   * open, you close it).
+   */
+  @Test
+  void first_pass_opens_all_100_doors() {
+    assertEquals(100, new HundredDoors().run(1).countOpenDoors());
+  }
 }
