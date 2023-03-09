@@ -17,13 +17,19 @@ public class HundredDoors {
     return doors.stream().filter(Door::isOpen).count();
   }
 
-  public HundredDoors run(int step) {
+  public HundredDoors run(int numberOfPasses) {
+    for (int i = 1; i <= numberOfPasses; i++) {
+      pass(i);
+    }
+    return this;
+  }
+
+  private void pass(int step) {
     for (Door door : doors) {
       if (door.getNumber() % step == 0) {
         door.toggle();
       }
     }
-    return this;
   }
 
   public Collection<Door> getDoors() {

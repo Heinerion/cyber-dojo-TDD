@@ -2,7 +2,8 @@ package de.hsp.tdd._100_doors;
 
 import org.junit.jupiter.api.*;
 
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,9 +43,26 @@ class HundredDoorsTest {
 
     assertAll(
         () -> assertEquals(50, run.countOpenDoors(), "50 doors should be open"),
-        () -> assertTrue(doors.stream().filter(d -> d.getNumber() % 2 == 0).allMatch(Door::isOpen), "each even door should be open"),
-        () -> assertTrue(doors.stream().filter(d -> d.getNumber() % 2 != 0).noneMatch(Door::isOpen), "each uneven door should be closed")
+        () -> assertTrue(doors.stream().filter(d -> d.getNumber() % 2 == 0).noneMatch(Door::isOpen), "each even door should be open"),
+        () -> assertTrue(doors.stream().filter(d -> d.getNumber() % 2 != 0).allMatch(Door::isOpen), "each uneven door should be closed")
     );
   }
 
+  /**
+   * The third time, every 3rd door (door #3, #6, #9, ...),
+   */
+  @Test
+  void third_pass_toggles_every_third_door() {
+    Map<Integer, Boolean> doorsAfterSecondRun = new HundredDoors()
+        .run(2)
+        .getDoors().stream()
+        .collect(Collectors.toMap(Door::getNumber, Door::isOpen));
+
+    Collection<Door> doors = new HundredDoors().run(3).getDoors();
+
+    assertAll(
+        () -> assertTrue(doors.stream().filter(d -> d.getNumber() % 3 != 0).allMatch(d -> d.isOpen() == doorsAfterSecondRun.get(d.getNumber())), "No door with a number undivisable by three has been toggled"),
+        () -> assertTrue(doors.stream().filter(d -> d.getNumber() % 3 == 0).allMatch(d -> d.isOpen() != doorsAfterSecondRun.get(d.getNumber())), "Every third door has been toggled")
+    );
+  }
 }
