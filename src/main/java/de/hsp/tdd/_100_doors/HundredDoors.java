@@ -42,4 +42,10 @@ public class HundredDoors {
     return doors.stream().filter(filter).collect(Collectors.toList());
   }
 
+  public String asString() {
+    return doors.stream()
+        .sorted(Comparator.comparing(Door::getNumber))
+        .map(d -> d.isOpen() ? "1" : "0")
+        .collect(Collectors.joining());
+  }
 }

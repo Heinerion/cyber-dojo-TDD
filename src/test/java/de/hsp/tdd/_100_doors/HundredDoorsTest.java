@@ -64,4 +64,19 @@ class HundredDoorsTest {
         () -> assertTrue(run.getDoors(d -> d.getNumber() % 3 == 0).stream().allMatch(d -> d.isOpen() != doorsAfterSecondRun.get(d.getNumber())), "Every third door has been toggled")
     );
   }
+
+  /**
+   * [...] until you only visit the 100th door.
+   */
+  @Test
+  void the_hundredth_visit_only_toggles_door_numer_100() {
+    HundredDoors run99 = new HundredDoors().run(99);
+    HundredDoors run100 = new HundredDoors().run(100);
+
+    assertAll(
+        () -> assertEquals(1, Math.abs(run99.countOpenDoors() - run100.countOpenDoors())),
+        () -> assertEquals(run99.asString().substring(0, 98), run100.asString().substring(0, 98)),
+        () -> assertNotEquals(run99.asString().substring(99), run100.asString().substring(99))
+    );
+  }
 }
