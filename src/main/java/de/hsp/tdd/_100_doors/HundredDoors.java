@@ -1,14 +1,32 @@
 package de.hsp.tdd._100_doors;
 
-public class HundredDoors {
-  int openDoors = 0;
+import java.util.*;
 
-  public int countOpenDoors() {
-    return openDoors;
+public class HundredDoors {
+  private static final int MAX_NUMBER = 100;
+  private final List<Door> doors;
+
+  public HundredDoors() {
+    doors = new ArrayList<>(100);
+    for (int i = 1; i <= MAX_NUMBER; i++) {
+      doors.add(new Door(i));
+    }
   }
 
-  public HundredDoors run(int i) {
-    openDoors = 100;
+  public long countOpenDoors() {
+    return doors.stream().filter(Door::isOpen).count();
+  }
+
+  public HundredDoors run(int step) {
+    for (Door door : doors) {
+      if (door.getNumber() % step == 0) {
+        door.toggle();
+      }
+    }
     return this;
+  }
+
+  public List<Door> getDoors() {
+    return doors;
   }
 }
