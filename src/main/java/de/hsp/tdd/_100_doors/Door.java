@@ -19,4 +19,9 @@ public class Door {
   public void toggle() {
     open = !open;
   }
+
+  @Override
+  public String toString() {
+    return String.format("%03d", number);
+  }
 }
