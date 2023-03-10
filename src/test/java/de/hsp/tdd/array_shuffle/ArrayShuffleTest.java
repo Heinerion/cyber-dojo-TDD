@@ -47,4 +47,15 @@ class ArrayShuffleTest {
     Integer[] shuffled = new Shuffler().shuffle(numbers);
     assertNotNull(shuffled);
   }
+
+  @Test
+  void shuffle_does_not_mutate_the_array_argument() {
+    Integer[] numbers = {1, 2, 3};
+    Integer[] numbersBackup = Arrays.copyOf(numbers, numbers.length);
+    assertArrayEquals(numbers, numbersBackup);
+
+    Integer[] shuffled = new Shuffler().shuffle(numbers);
+    assertNotSame(numbers, shuffled);
+    assertArrayEquals(numbers, numbersBackup);
+  }
 }
