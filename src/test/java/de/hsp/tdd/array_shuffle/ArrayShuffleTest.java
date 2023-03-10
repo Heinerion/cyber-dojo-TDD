@@ -10,4 +10,9 @@ class ArrayShuffleTest {
   void random_1_to_2_returns_1_every_time() {
     assertEquals(1, new RandomNumberGenerator().getRandom(1, 2));
   }
+
+  @Test
+  void random_2_to_3_returns_2_every_time() {
+    assertEquals(2, new RandomNumberGenerator().getRandom(2, 3));
+  }
 }
