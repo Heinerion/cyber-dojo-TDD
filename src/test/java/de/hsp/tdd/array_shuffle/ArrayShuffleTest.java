@@ -2,6 +2,8 @@ package de.hsp.tdd.array_shuffle;
 
 import org.junit.jupiter.api.*;
 
+import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -24,5 +26,18 @@ class ArrayShuffleTest {
   @Test
   void random_returns_min_if_min_and_max_are_equal() {
     assertEquals(2, new RandomNumberGenerator().getRandom(2, 2));
+  }
+
+  @Test
+  void random_1_to_7_returns_in_20_runs_all_6_different_numbers() {
+    Set<Integer> randomNumbers = new HashSet<>();
+
+    RandomNumberGenerator generator = new RandomNumberGenerator();
+    for (int i = 0; i < 20; i++) {
+      int random = generator.getRandom(1, 7);
+      randomNumbers.add(random);
+    }
+
+    assertEquals(6, randomNumbers.size());
   }
 }
