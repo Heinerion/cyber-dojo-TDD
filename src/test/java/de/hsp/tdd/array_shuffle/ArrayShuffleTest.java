@@ -43,8 +43,8 @@ class ArrayShuffleTest {
 
   @Test
   void shuffle_returns_an_array() {
-    int[] numbers = {1, 2, 3};
-    int[] shuffled = new Shuffler().shuffle(numbers);
+    Integer[] numbers = {1, 2, 3};
+    Integer[] shuffled = new Shuffler().shuffle(numbers);
     assertNotNull(shuffled);
   }
 }
