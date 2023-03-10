@@ -10,4 +10,9 @@ class FizzBuzzTest {
   void one_renders_as_1() {
     assertEquals("1", new FizzBuzz().render(1));
   }
+
+  @Test
+  void two_renders_as_2() {
+    assertEquals("2", new FizzBuzz().render(2));
+  }
 }
