@@ -33,7 +33,7 @@ class ArrayShuffleTest {
     Set<Integer> randomNumbers = new HashSet<>();
 
     RandomNumberGenerator generator = new RandomNumberGenerator();
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 50; i++) {
       int random = generator.getRandom(1, 7);
       randomNumbers.add(random);
     }
