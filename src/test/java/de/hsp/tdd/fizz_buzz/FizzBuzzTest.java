@@ -2,6 +2,8 @@ package de.hsp.tdd.fizz_buzz;
 
 import org.junit.jupiter.api.*;
 
+import java.io.ByteArrayOutputStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -48,5 +50,13 @@ class FizzBuzzTest {
         () -> assertEquals("FizzBuzz", new FizzBuzz().render(15)),
         () -> assertEquals("FizzBuzz", new FizzBuzz().render(30))
     );
+  }
+
+  @Test
+  void print_displays_exactly_100_Strings() {
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    new FizzBuzz().print(outputStream);
+
+    assertEquals(100, outputStream.toString().split("[\\r\\n]+").length);
   }
 }
