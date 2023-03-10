@@ -4,7 +4,7 @@ import org.junit.jupiter.api.*;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class ArrayShuffleTest {
@@ -39,5 +39,12 @@ class ArrayShuffleTest {
     }
 
     assertEquals(6, randomNumbers.size());
+  }
+
+  @Test
+  void shuffle_returns_an_array() {
+    int[] numbers = {1, 2, 3};
+    int[] shuffled = new Shuffler().shuffle(numbers);
+    assertNotNull(shuffled);
   }
 }
