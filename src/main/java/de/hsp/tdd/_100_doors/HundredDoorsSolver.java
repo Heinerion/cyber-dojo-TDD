@@ -22,9 +22,9 @@ public class HundredDoorsSolver {
     List<String> closedDoors = new ArrayList<>();
     for (Door door : run.getDoors()) {
       if (door.isOpen()) {
-        openDoors.add(door.toString());
+        openDoors.add(stringify(door));
       } else {
-        closedDoors.add(door.toString());
+        closedDoors.add(stringify(door));
       }
     }
 
@@ -36,5 +36,9 @@ public class HundredDoorsSolver {
         openDoorCount,
         String.join(", ", openDoors),
         String.join(", ", closedDoors));
+  }
+
+  private static String stringify(Door door) {
+    return String.format("%03d", door.getNumber());
   }
 }
