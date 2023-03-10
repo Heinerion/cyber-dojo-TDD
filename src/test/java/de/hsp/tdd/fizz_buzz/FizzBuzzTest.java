@@ -41,4 +41,12 @@ class FizzBuzzTest {
         () -> assertEquals("Buzz", new FizzBuzz().render(25))
     );
   }
+
+  @Test
+  void multiples_of_three_and_five_render_as_FizzBuzz() {
+    assertAll(
+        () -> assertEquals("FizzBuzz", new FizzBuzz().render(15)),
+        () -> assertEquals("FizzBuzz", new FizzBuzz().render(30))
+    );
+  }
 }

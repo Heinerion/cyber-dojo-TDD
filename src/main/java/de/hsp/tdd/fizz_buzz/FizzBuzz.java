@@ -2,12 +2,16 @@ package de.hsp.tdd.fizz_buzz;
 
 public class FizzBuzz {
   public String render(int number) {
+    String rendered = "";
     if (number % 3 == 0) {
-      return "Fizz";
+      rendered += "Fizz";
     }
     if (number % 5 == 0) {
-      return "Buzz";
+      rendered += "Buzz";
     }
-    return String.valueOf(number);
+    
+    return rendered.isBlank()
+        ? String.valueOf(number)
+        : rendered;
   }
 }
