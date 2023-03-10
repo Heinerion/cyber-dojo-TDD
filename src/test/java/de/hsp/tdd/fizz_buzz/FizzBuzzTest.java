@@ -15,4 +15,9 @@ class FizzBuzzTest {
   void two_renders_as_2() {
     assertEquals("2", new FizzBuzz().render(2));
   }
+
+  @Test
+  void three_renders_as_Fizz() {
+    assertEquals("Fizz", new FizzBuzz().render(3));
+  }
 }
