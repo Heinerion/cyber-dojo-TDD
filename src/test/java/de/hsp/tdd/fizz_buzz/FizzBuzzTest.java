@@ -2,7 +2,7 @@ package de.hsp.tdd.fizz_buzz;
 
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class FizzBuzzTest {
@@ -19,5 +19,13 @@ class FizzBuzzTest {
   @Test
   void three_renders_as_Fizz() {
     assertEquals("Fizz", new FizzBuzz().render(3));
+  }
+
+  @Test
+  void multiples_of_three_render_as_Fizz() {
+    assertAll(
+        () -> assertEquals("Fizz", new FizzBuzz().render(6)),
+        () -> assertEquals("Fizz", new FizzBuzz().render(9))
+    );
   }
 }
