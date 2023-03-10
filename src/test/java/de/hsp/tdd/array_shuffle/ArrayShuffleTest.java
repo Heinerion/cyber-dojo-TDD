@@ -15,4 +15,9 @@ class ArrayShuffleTest {
   void random_2_to_3_returns_2_every_time() {
     assertEquals(2, new RandomNumberGenerator().getRandom(2, 3));
   }
+
+  @Test
+  void random_returns_min_if_min_and_max_are_equal() {
+    assertEquals(2, new RandomNumberGenerator().getRandom(2, 2));
+  }
 }
