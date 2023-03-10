@@ -28,4 +28,9 @@ class FizzBuzzTest {
         () -> assertEquals("Fizz", new FizzBuzz().render(9))
     );
   }
+
+  @Test
+  void five_renders_as_Buzz() {
+    assertEquals("Buzz", new FizzBuzz().render(5));
+  }
 }
