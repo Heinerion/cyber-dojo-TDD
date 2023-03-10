@@ -1,7 +1,7 @@
 # TDD Excercises: Progress
 
 - [ ] [_12_days_of_xmas](../java/de/hsp/tdd/_12_days_of_xmas/readme.txt)
-- [ ] [_100_doors](../java/de/hsp/tdd/_100_doors/readme.txt)
+- [X] [_100_doors](../java/de/hsp/tdd/_100_doors/readme.txt)
 - [ ] [abc_problem](../java/de/hsp/tdd/abc_problem/readme.txt)
 - [ ] [align_columns](../java/de/hsp/tdd/align_columns/readme.txt)
 - [ ] [anagrams](../java/de/hsp/tdd/anagrams/readme.txt)
