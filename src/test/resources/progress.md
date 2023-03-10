@@ -19,7 +19,7 @@
 - [ ] [filename_range](../java/de/hsp/tdd/filename_range/readme.txt)
 - [ ] [fisher_yates_shuffle](../java/de/hsp/tdd/fisher_yates_shuffle/readme.txt)
 - [ ] [five_weekends](../java/de/hsp/tdd/five_weekends/readme.txt)
-- [ ] [fizz_buzz](../java/de/hsp/tdd/fizz_buzz/readme.txt)
+- [x] [fizz_buzz](../java/de/hsp/tdd/fizz_buzz/readme.txt)
 - [ ] [fizz_buzz_plus](../java/de/hsp/tdd/fizz_buzz_plus/readme.txt)
 - [ ] [friday_13th](../java/de/hsp/tdd/friday_13th/readme.txt)
 - [ ] [game_of_life](../java/de/hsp/tdd/game_of_life/readme.txt)
