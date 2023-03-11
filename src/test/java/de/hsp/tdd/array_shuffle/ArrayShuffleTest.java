@@ -58,4 +58,12 @@ class ArrayShuffleTest {
     assertNotSame(numbers, shuffled);
     assertArrayEquals(numbers, numbersBackup);
   }
+
+  @Test
+  void shuffle_returns_a_randomly_shuffled_array() {
+    Integer[] numbers = {1, 2, 3};
+    Integer[] shuffled = new Shuffler().shuffle(numbers);
+
+    assertNotEquals(Arrays.toString(numbers), Arrays.toString(shuffled));
+  }
 }
