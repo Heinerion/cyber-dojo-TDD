@@ -45,7 +45,7 @@ class ArrayShuffleTest {
   @Test
   void shuffle_returns_an_array() {
     Integer[] numbers = {1, 2, 3};
-    Integer[] shuffled = new Shuffler().shuffle(numbers);
+    Integer[] shuffled = new Shuffler(new RandomNumberGenerator()).shuffle(numbers);
     assertNotNull(shuffled);
   }
 
@@ -55,7 +55,7 @@ class ArrayShuffleTest {
     Integer[] numbersBackup = Arrays.copyOf(numbers, numbers.length);
     assertArrayEquals(numbers, numbersBackup);
 
-    Integer[] shuffled = new Shuffler().shuffle(numbers);
+    Integer[] shuffled = new Shuffler(new RandomNumberGenerator()).shuffle(numbers);
     assertNotSame(numbers, shuffled);
     assertArrayEquals(numbers, numbersBackup);
   }
@@ -63,7 +63,7 @@ class ArrayShuffleTest {
   @Test
   void shuffle_returns_a_randomly_shuffled_array() {
     Integer[] numbers = {1, 2, 3};
-    Integer[] shuffled = new Shuffler().shuffle(numbers);
+    Integer[] shuffled = new Shuffler(new RandomNumberGenerator()).shuffle(numbers);
 
     assertNotEquals(Arrays.toString(numbers), Arrays.toString(shuffled));
   }
@@ -71,7 +71,7 @@ class ArrayShuffleTest {
   @Test
   void shuffle_returns_a_permutation_of_the_array_argument() {
     Integer[] numbers = {5, 7, 6, 4, 1, 2, 3};
-    Integer[] shuffled = new Shuffler().shuffle(numbers);
+    Integer[] shuffled = new Shuffler(new RandomNumberGenerator()).shuffle(numbers);
 
     assertEquals(characterizeArray(numbers), characterizeArray(shuffled));
   }
@@ -81,5 +81,14 @@ class ArrayShuffleTest {
         .sorted()
         .map(String::valueOf)
         .collect(Collectors.joining(", "));
+  }
+
+  @Test
+  void shuffle_switches_array_items_by_given_strategy() {
+    Integer[] example = {1, 2, 3, 4, 5};
+    Integer[] expected = {2, 3, 4, 5, 1};
+
+    Integer[] shuffled = new Shuffler((min, max) -> Math.min(min + 1, max - 1)).shuffle(example);
+    assertArrayEquals(expected, shuffled);
   }
 }
