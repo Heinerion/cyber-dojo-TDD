@@ -3,6 +3,7 @@ package de.hsp.tdd.array_shuffle;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,5 +66,20 @@ class ArrayShuffleTest {
     Integer[] shuffled = new Shuffler().shuffle(numbers);
 
     assertNotEquals(Arrays.toString(numbers), Arrays.toString(shuffled));
+  }
+
+  @Test
+  void shuffle_returns_a_permutation_of_the_array_argument() {
+    Integer[] numbers = {5, 7, 6, 4, 1, 2, 3};
+    Integer[] shuffled = new Shuffler().shuffle(numbers);
+
+    assertEquals(characterizeArray(numbers), characterizeArray(shuffled));
+  }
+
+  private String characterizeArray(Integer[] array) {
+    return Arrays.stream(array)
+        .sorted()
+        .map(String::valueOf)
+        .collect(Collectors.joining(", "));
   }
 }
