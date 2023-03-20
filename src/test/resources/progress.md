@@ -5,7 +5,7 @@
 - [ ] [abc_problem](../java/de/hsp/tdd/abc_problem/readme.txt)
 - [ ] [align_columns](../java/de/hsp/tdd/align_columns/readme.txt)
 - [ ] [anagrams](../java/de/hsp/tdd/anagrams/readme.txt)
-- [ ] [array_shuffle](../java/de/hsp/tdd/array_shuffle/readme.txt)
+- [X] [array_shuffle](../java/de/hsp/tdd/array_shuffle/readme.txt)
 - [ ] [balanced_parentheses](../java/de/hsp/tdd/balanced_parentheses/readme.txt)
 - [ ] [best_shuffle](../java/de/hsp/tdd/best_shuffle/readme.txt)
 - [ ] [bowling_game](../java/de/hsp/tdd/bowling_game/readme.txt)
