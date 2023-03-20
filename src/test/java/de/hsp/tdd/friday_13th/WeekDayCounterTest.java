@@ -18,4 +18,12 @@ class WeekDayCounterTest {
     assertEquals(Long.valueOf(1), occurrences.get(DayOfWeek.MONDAY));
   }
 
+  @Test
+  void the_13th_of_January_1973_was_a_Saturday() {
+    Map<DayOfWeek, Long> occurrences = new WeekDayCounter(
+        LocalDate.of(1973, 1, 1),
+        LocalDate.of(1973, 1, 31))
+        .countWeekDaysForDayInMonth(13);
+    assertEquals(Long.valueOf(1), occurrences.get(DayOfWeek.SATURDAY));
+  }
 }
