@@ -14,7 +14,7 @@ class WeekDayCounterTest {
   void the_1st_of_January_1973_was_a_Monday() {
     LocalDate date = LocalDate.of(1973, 1, 1);
     Map<DayOfWeek, Long> occurrences = new WeekDayCounter(date, date)
-        .countWeekDaysForDayInMonth(13);
+        .countWeekDaysForDayInMonth(1);
     assertEquals(Long.valueOf(1), occurrences.get(DayOfWeek.MONDAY));
   }
 
