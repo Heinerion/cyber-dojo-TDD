@@ -62,7 +62,7 @@ class ArrayShuffleTest {
 
   @Test
   void shuffle_returns_a_randomly_shuffled_array() {
-    Integer[] numbers = {1, 2, 3};
+    Integer[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
     Integer[] shuffled = new Shuffler(new RandomNumberGenerator()).shuffle(numbers);
 
     assertNotEquals(Arrays.toString(numbers), Arrays.toString(shuffled));
