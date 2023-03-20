@@ -21,7 +21,7 @@
 - [ ] [five_weekends](../java/de/hsp/tdd/five_weekends/readme.txt)
 - [x] [fizz_buzz](../java/de/hsp/tdd/fizz_buzz/readme.txt)
 - [ ] [fizz_buzz_plus](../java/de/hsp/tdd/fizz_buzz_plus/readme.txt)
-- [ ] [friday_13th](../java/de/hsp/tdd/friday_13th/readme.txt)
+- [x] [friday_13th](../java/de/hsp/tdd/friday_13th/readme.txt)
 - [ ] [game_of_life](../java/de/hsp/tdd/game_of_life/readme.txt)
 - [ ] [gray_code](../java/de/hsp/tdd/gray_code/readme.txt)
 - [ ] [group_neighbours](../java/de/hsp/tdd/group_neighbours/readme.txt)
