@@ -26,4 +26,27 @@ class WeekDayCounterTest {
         .countWeekDaysForDayInMonth(13);
     assertEquals(Long.valueOf(1), occurrences.get(DayOfWeek.SATURDAY));
   }
+
+  @Test
+  void all_the_13ths_of_1973_are_counted_correctly() {
+    Map<DayOfWeek, Long> occurrences = new WeekDayCounter(
+        LocalDate.of(1973, 1, 1),
+        LocalDate.of(1973, 12, 31))
+        .countWeekDaysForDayInMonth(13);
+
+    // MON: 1 - AUG
+    assertEquals(Long.valueOf(1), occurrences.get(DayOfWeek.MONDAY));
+    // TUE: 3 - FEB, MAR, NOV
+    assertEquals(Long.valueOf(3), occurrences.get(DayOfWeek.TUESDAY));
+    // WED: 1 - JUN
+    assertEquals(Long.valueOf(1), occurrences.get(DayOfWeek.WEDNESDAY));
+    // THU: 2 - SEP, DEC
+    assertEquals(Long.valueOf(2), occurrences.get(DayOfWeek.THURSDAY));
+    // FRI: 2 - APR, JUL
+    assertEquals(Long.valueOf(2), occurrences.get(DayOfWeek.FRIDAY));
+    // SAT: 2 - JAN, OKT
+    assertEquals(Long.valueOf(2), occurrences.get(DayOfWeek.SATURDAY));
+    // SUN: 1 - MAY
+    assertEquals(Long.valueOf(1), occurrences.get(DayOfWeek.SUNDAY));
+  }
 }
