@@ -8,12 +8,7 @@ public class RandomNumberGenerator implements RandomNumberStrategy {
 
   @Override
   public int getRandom(int min, int maxExcl) {
-    if (maxExcl < min) {
-      return getRandom(maxExcl, min);
-    }
-    if (min == maxExcl) {
-      return getRandom(min, min + 1);
-    }
-    return RANDOM.nextInt(maxExcl - min) + min;
+    int difference = Math.abs(min - maxExcl);
+    return RANDOM.nextInt(difference != 0 ? difference : 1) + Math.min(min, maxExcl);
   }
 }
