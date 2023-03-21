@@ -34,4 +34,18 @@ class AlignColumnsTest {
     String formatted = new AlignColumns(originalText).align();
     assertEquals(expected, formatted);
   }
+
+  @Test
+  void Lines_may_or_may_not_contain_the_same_number_of_fields() {
+    String originalText = ""
+        + "line$number$one\n"
+        + "second$line";
+
+    String expected = ""
+        + "line   number one\n"
+        + "second line";
+
+    String formatted = new AlignColumns(originalText).align();
+    assertEquals(expected, formatted);
+  }
 }
