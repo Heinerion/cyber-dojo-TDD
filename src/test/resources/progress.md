@@ -3,7 +3,7 @@
 - [ ] [_12_days_of_xmas](../java/de/hsp/tdd/_12_days_of_xmas/readme.txt)
 - [X] [_100_doors](../java/de/hsp/tdd/_100_doors/readme.txt)
 - [ ] [abc_problem](../java/de/hsp/tdd/abc_problem/readme.txt)
-- [ ] [align_columns](../java/de/hsp/tdd/align_columns/readme.txt)
+- [x] [align_columns](../java/de/hsp/tdd/align_columns/readme.txt)
 - [ ] [anagrams](../java/de/hsp/tdd/anagrams/readme.txt)
 - [X] [array_shuffle](../java/de/hsp/tdd/array_shuffle/readme.txt)
 - [ ] [balanced_parentheses](../java/de/hsp/tdd/balanced_parentheses/readme.txt)
