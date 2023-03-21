@@ -3,13 +3,21 @@ package de.hsp.tdd.align_columns;
 import java.util.*;
 
 public class AlignColumns {
-  public String align(String source) {
-    String[] lines = source.split("\\n");
-    String[][] wordTable = new String[lines.length][255];
-    int[] column2width = new int[255];
+  private final String[] lines;
+  private final String[][] wordTable;
+  private final int[] column2width;
 
-    int maxCol = 0;
+  private int maxCol;
 
+  public AlignColumns(String source) {
+    lines = source.split("\\n");
+    wordTable = new String[lines.length][255];
+    column2width = new int[255];
+
+    maxCol = 0;
+  }
+
+  public String align() {
     for (int lineNumber = 0; lineNumber < lines.length; lineNumber++) {
       String[] words = lines[lineNumber].split("\\$");
       for (int column = 0; column < words.length; column++) {
@@ -21,10 +29,10 @@ public class AlignColumns {
       }
     }
 
-    return formatLines(wordTable, column2width, maxCol);
+    return formatLines();
   }
 
-  private String formatLines(String[][] wordTable, int[] column2width, int maxCol) {
+  private String formatLines() {
     List<String> formattedLines = new ArrayList<>();
 
     for (String[] row : wordTable) {
