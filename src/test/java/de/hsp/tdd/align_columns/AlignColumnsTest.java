@@ -20,4 +20,18 @@ class AlignColumnsTest {
     String trailing = new AlignColumns().align("three$simple$words$");
     assertEquals(trimmed, trailing);
   }
+
+  @Test
+  void aligns_columns_of_fields_in_multiple_lines() {
+    String originalText = ""
+        + "line$number$one\n"
+        + "second$line$two";
+
+    String expected = ""
+        + "line   number one\n"
+        + "second line   two";
+
+    String formatted = new AlignColumns().align(originalText);
+    assertEquals(expected, formatted);
+  }
 }
