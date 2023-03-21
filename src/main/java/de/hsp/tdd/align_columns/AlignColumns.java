@@ -18,18 +18,24 @@ public class AlignColumns {
   }
 
   public String align() {
-    for (int lineNumber = 0; lineNumber < lines.length; lineNumber++) {
-      String[] words = lines[lineNumber].split("\\$");
-      for (int column = 0; column < words.length; column++) {
-        String word = words[column];
-        column2width[column] = Math.max(word.length(), column2width[column]);
-        wordTable[lineNumber][column] = word;
+    analyzeLines();
+    return formatLines();
+  }
 
-        maxCol = Math.max(column, maxCol);
+  private void analyzeLines() {
+    for (int row = 0; row < lines.length; row++) {
+      String[] words = lines[row].split("\\$");
+      for (int column = 0; column < words.length; column++) {
+        analyzeColumn(words[column], row, column);
       }
     }
+  }
 
-    return formatLines();
+  private void analyzeColumn(String word, int row, int column) {
+    column2width[column] = Math.max(word.length(), column2width[column]);
+    wordTable[row][column] = word;
+
+    maxCol = Math.max(column, maxCol);
   }
 
   private String formatLines() {
