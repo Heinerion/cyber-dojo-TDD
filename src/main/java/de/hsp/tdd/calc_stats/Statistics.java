@@ -32,4 +32,8 @@ public final class Statistics {
   public int getNumberOfArguments() {
     return (int) stats.getCount();
   }
+
+  public double getAverage() {
+    return 0;
+  }
 }

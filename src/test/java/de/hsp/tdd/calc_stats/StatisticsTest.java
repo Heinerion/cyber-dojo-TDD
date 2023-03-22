@@ -61,4 +61,9 @@ class StatisticsTest {
     assertEquals(6, numberOfArguments);
   }
 
+  @Test
+  void calculates_average_value_for_no_input() {
+    double average = Statistics.of().getAverage();
+    assertEquals(0d, average);
+  }
 }
