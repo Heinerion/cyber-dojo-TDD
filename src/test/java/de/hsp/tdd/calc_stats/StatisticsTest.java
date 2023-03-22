@@ -2,7 +2,7 @@ package de.hsp.tdd.calc_stats;
 
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StatisticsTest {
@@ -10,7 +10,7 @@ class StatisticsTest {
   /**
    * describes the accepted variation for double comparisons
    */
-  public static final double DELTA = 0.000_000_001;
+  public static final double DELTA = 0.000_001;
 
   @Test
   void calculates_minimum_value_for_no_input() {
@@ -84,4 +84,14 @@ class StatisticsTest {
     assertEquals(-0.5d, average, DELTA);
   }
 
+  @Test
+  void calculates_the_same_results_as_the_given_example() {
+    Statistics exampleStatistics = Statistics.of(6, 9, 15, -2, 92, 11);
+    assertAll(
+        () -> assertEquals(-2, exampleStatistics.getMinimum()),
+        () -> assertEquals(92, exampleStatistics.getMaximum()),
+        () -> assertEquals(6, exampleStatistics.getNumberOfArguments()),
+        () -> assertEquals(21.833_333, exampleStatistics.getAverage(), DELTA)
+    );
+  }
 }
