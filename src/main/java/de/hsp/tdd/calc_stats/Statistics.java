@@ -34,6 +34,6 @@ public final class Statistics {
   }
 
   public double getAverage() {
-    return 0;
+    return stats.getAverage();
   }
 }

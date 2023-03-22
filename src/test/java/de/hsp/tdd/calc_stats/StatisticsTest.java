@@ -7,6 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StatisticsTest {
 
+  /**
+   * describes the accepted variation for double comparisons
+   */
+  public static final double DELTA = 0.000_000_001;
+
   @Test
   void calculates_minimum_value_for_no_input() {
     Statistics calc = Statistics.of();
@@ -66,4 +71,11 @@ class StatisticsTest {
     double average = Statistics.of().getAverage();
     assertEquals(0d, average);
   }
+
+  @Test
+  void calculates_average_value_for_single_input() {
+    double average = Statistics.of(1).getAverage();
+    assertEquals(1d, average, DELTA);
+  }
+
 }
