@@ -11,4 +11,10 @@ class CloseToZeroDetectorTest {
     int closest = new CloseToZeroDetector().detectClosestNumber();
     assertEquals(Integer.MAX_VALUE, closest);
   }
+
+  @Test
+  void detect_smallest_distance_to_zero_for_single_arguments() {
+    int closest = new CloseToZeroDetector().detectClosestNumber(1);
+    assertEquals(1, closest);
+  }
 }
