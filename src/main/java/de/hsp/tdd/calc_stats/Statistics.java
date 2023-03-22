@@ -15,6 +15,9 @@ public final class Statistics {
     return new Statistics(IntStream.of(i).summaryStatistics());
   }
 
+  /**
+   * @return the smallest number in the list of arguments or {@link Integer#MAX_VALUE} if the given array was empty
+   */
   public int getMinimum() {
     return stats.getMin();
   }

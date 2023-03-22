@@ -6,6 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class StatisticsTest {
+
+  @Test
+  void calculates_minimum_value_for_no_input() {
+    Statistics calc = Statistics.of();
+    assertEquals(Integer.MAX_VALUE, calc.getMinimum());
+  }
+
   @Test
   void calculates_minimum_value_for_single_input() {
     Statistics calc = Statistics.of(1);
