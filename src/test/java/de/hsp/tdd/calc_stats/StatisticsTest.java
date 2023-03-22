@@ -78,4 +78,10 @@ class StatisticsTest {
     assertEquals(1d, average, DELTA);
   }
 
+  @Test
+  void calculates_average_value_for_multiple_inputs() {
+    double average = Statistics.of(1, -2, 3, -4, 5, -6).getAverage();
+    assertEquals(-0.5d, average, DELTA);
+  }
+
 }
