@@ -9,7 +9,7 @@
 - [ ] [balanced_parentheses](../java/de/hsp/tdd/balanced_parentheses/readme.txt)
 - [ ] [best_shuffle](../java/de/hsp/tdd/best_shuffle/readme.txt)
 - [ ] [bowling_game](../java/de/hsp/tdd/bowling_game/readme.txt)
-- [ ] [calc_stats](../java/de/hsp/tdd/calc_stats/readme.txt)
+- [x] [calc_stats](../java/de/hsp/tdd/calc_stats/readme.txt)
 - [ ] [closest_to_zero](../java/de/hsp/tdd/closest_to_zero/readme.txt)
 - [ ] [combined_number](../java/de/hsp/tdd/combined_number/readme.txt)
 - [ ] [count_coins](../java/de/hsp/tdd/count_coins/readme.txt)
