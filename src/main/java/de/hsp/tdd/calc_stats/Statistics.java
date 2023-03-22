@@ -21,4 +21,8 @@ public final class Statistics {
   public int getMinimum() {
     return stats.getMin();
   }
+
+  public int getMaximum() {
+    return Integer.MIN_VALUE;
+  }
 }

@@ -25,4 +25,9 @@ class StatisticsTest {
     assertEquals(-6, calc.getMinimum());
   }
 
+  @Test
+  void calculates_maximum_value_for_no_input() {
+    Statistics calc = Statistics.of();
+    assertEquals(Integer.MIN_VALUE, calc.getMaximum());
+  }
 }
