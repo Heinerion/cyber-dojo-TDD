@@ -6,11 +6,14 @@ public class CloseToZeroDetector {
     for (int number : numbers) {
       int distance = Math.abs(number);
       int smallestDistance = Math.abs(smallest);
-      if (distance < smallestDistance) {
-        smallest = number;
-      } else if (distance == smallestDistance
-          // If the distance to zero is equal, choose the positive value
-          && number > smallest) {
+
+      // find the closest to zero.
+      boolean hasSmallestDistance = distance < smallestDistance;
+      // If there is a tie, choose the positive value.
+      boolean isPositiveMemberOfATie = distance == smallestDistance
+          && number > smallest;
+
+      if (hasSmallestDistance || isPositiveMemberOfATie) {
         smallest = number;
       }
     }
