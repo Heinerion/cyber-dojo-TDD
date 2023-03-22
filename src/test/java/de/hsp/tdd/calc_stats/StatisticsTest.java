@@ -30,4 +30,10 @@ class StatisticsTest {
     Statistics calc = Statistics.of();
     assertEquals(Integer.MIN_VALUE, calc.getMaximum());
   }
+
+  @Test
+  void calculates_maximum_value_for_single_input() {
+    Statistics calc = Statistics.of(1);
+    assertEquals(1, calc.getMaximum());
+  }
 }

@@ -16,13 +16,16 @@ public final class Statistics {
   }
 
   /**
-   * @return the smallest number in the list of arguments or {@link Integer#MAX_VALUE} if the given array was empty
+   * @return the smallest number in the list of arguments or {@link Integer#MAX_VALUE}, if the given array was empty
    */
   public int getMinimum() {
     return stats.getMin();
   }
 
+  /**
+   * @return the greatest number in the list od arguments or {@link Integer#MIN_VALUE}, if the given array was empty
+   */
   public int getMaximum() {
-    return Integer.MIN_VALUE;
+    return stats.getMax();
   }
 }
