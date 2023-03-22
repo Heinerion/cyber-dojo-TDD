@@ -28,4 +28,8 @@ public final class Statistics {
   public int getMaximum() {
     return stats.getMax();
   }
+
+  public int getNumberOfArguments() {
+    return 0;
+  }
 }

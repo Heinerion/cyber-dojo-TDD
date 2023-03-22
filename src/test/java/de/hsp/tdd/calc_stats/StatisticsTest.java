@@ -43,4 +43,9 @@ class StatisticsTest {
     assertEquals(5, calc.getMaximum());
   }
 
+  @Test
+  void returns_the_number_of_arguments_for_no_input() {
+    int numberOfArguments = Statistics.of().getNumberOfArguments();
+    assertEquals(0, numberOfArguments);
+  }
 }
