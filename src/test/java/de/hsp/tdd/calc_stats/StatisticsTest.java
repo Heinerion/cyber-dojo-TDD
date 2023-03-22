@@ -48,4 +48,11 @@ class StatisticsTest {
     int numberOfArguments = Statistics.of().getNumberOfArguments();
     assertEquals(0, numberOfArguments);
   }
+
+  @Test
+  void returns_the_number_of_arguments_for_single_input() {
+    int numberOfArguments = Statistics.of(1).getNumberOfArguments();
+    assertEquals(1, numberOfArguments);
+  }
+
 }

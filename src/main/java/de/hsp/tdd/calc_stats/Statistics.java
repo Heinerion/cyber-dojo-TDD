@@ -30,6 +30,6 @@ public final class Statistics {
   }
 
   public int getNumberOfArguments() {
-    return 0;
+    return (int) stats.getCount();
   }
 }
