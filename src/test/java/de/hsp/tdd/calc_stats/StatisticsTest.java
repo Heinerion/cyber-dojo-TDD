@@ -55,4 +55,10 @@ class StatisticsTest {
     assertEquals(1, numberOfArguments);
   }
 
+  @Test
+  void returns_the_number_of_arguments_for_multiple_input() {
+    int numberOfArguments = Statistics.of(1, -2, 3, -4, 5, -6).getNumberOfArguments();
+    assertEquals(6, numberOfArguments);
+  }
+
 }
