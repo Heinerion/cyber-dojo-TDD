@@ -36,4 +36,11 @@ class StatisticsTest {
     Statistics calc = Statistics.of(1);
     assertEquals(1, calc.getMaximum());
   }
+
+  @Test
+  void calculates_maximum_value_for_many_inputs() {
+    Statistics calc = Statistics.of(1, -2, 3, -4, 5, -6);
+    assertEquals(5, calc.getMaximum());
+  }
+
 }
