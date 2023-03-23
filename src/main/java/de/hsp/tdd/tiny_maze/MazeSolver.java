@@ -4,8 +4,10 @@ import java.util.Arrays;
 
 public class MazeSolver {
   public String[][] solve(String[][] maze) {
-    String[][] result = new String[1][maze[0].length];
-    Arrays.fill(result[0], "x");
+    String[][] result = new String[maze.length][maze[0].length];
+    for (String[] row : result) {
+      Arrays.fill(row, "x");
+    }
     return result;
   }
 }
