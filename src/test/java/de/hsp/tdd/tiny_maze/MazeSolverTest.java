@@ -27,4 +27,11 @@ class MazeSolverTest {
     String[][] expected = {{"x"}, {"x"}};
     assertArrayEquals(expected, new MazeSolver().solve(maze));
   }
+
+  @Test
+  void solves_a_simple_vertical_line() {
+    String[][] maze = {{"S"}, {"0"}, {"E"}};
+    String[][] expected = {{"x"}, {"x"}, {"x"}};
+    assertArrayEquals(expected, new MazeSolver().solve(maze));
+  }
 }
