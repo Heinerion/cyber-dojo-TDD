@@ -8,10 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 class MazeSolverTest {
 
   @Test
-  void solves_a_simple_step() {
+  void solves_a_simple_horizontal_step() {
     String[][] maze = {{"S", "E"}};
     String[][] expected = {{"x", "x"}};
     assertArrayEquals(expected, new MazeSolver().solve(maze));
   }
 
+  @Test
+  void solves_a_simple_horizontal_line() {
+    String[][] maze = {{"S", "0", "E"}};
+    String[][] expected = {{"x", "x", "x"}};
+    assertArrayEquals(expected, new MazeSolver().solve(maze));
+  }
 }
