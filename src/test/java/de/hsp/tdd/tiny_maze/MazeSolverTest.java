@@ -34,4 +34,19 @@ class MazeSolverTest {
     String[][] expected = {{"x"}, {"x"}, {"x"}};
     assertArrayEquals(expected, new MazeSolver().solve(maze));
   }
+
+  @Test
+  void solves_a_diagonal() {
+    String[][] maze = {
+        {"S", "0", "1"},
+        {"1", "0", "1"},
+        {"1", "0", "E"}
+    };
+    String[][] expected = {
+        {"x", "x", "1"},
+        {"1", "x", "1"},
+        {"1", "x", "x"}
+    };
+    assertArrayEquals(expected, new MazeSolver().solve(maze));
+  }
 }
