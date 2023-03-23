@@ -2,7 +2,9 @@ package de.hsp.tdd.tiny_maze;
 
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class MazeSolverTest {
@@ -11,28 +13,28 @@ class MazeSolverTest {
   void solves_a_simple_horizontal_step() {
     String[][] maze = {{"S", "E"}};
     String[][] expected = {{"x", "x"}};
-    assertArrayEquals(expected, new MazeSolver().solve(maze));
+    assertMazesEquals(expected, new MazeSolver().solve(maze));
   }
 
   @Test
   void solves_a_simple_horizontal_line() {
     String[][] maze = {{"S", "0", "E"}};
     String[][] expected = {{"x", "x", "x"}};
-    assertArrayEquals(expected, new MazeSolver().solve(maze));
+    assertMazesEquals(expected, new MazeSolver().solve(maze));
   }
 
   @Test
   void solves_a_simple_vertical_step() {
     String[][] maze = {{"S"}, {"E"}};
     String[][] expected = {{"x"}, {"x"}};
-    assertArrayEquals(expected, new MazeSolver().solve(maze));
+    assertMazesEquals(expected, new MazeSolver().solve(maze));
   }
 
   @Test
   void solves_a_simple_vertical_line() {
     String[][] maze = {{"S"}, {"0"}, {"E"}};
     String[][] expected = {{"x"}, {"x"}, {"x"}};
-    assertArrayEquals(expected, new MazeSolver().solve(maze));
+    assertMazesEquals(expected, new MazeSolver().solve(maze));
   }
 
   @Test
@@ -47,6 +49,19 @@ class MazeSolverTest {
         {"1", "x", "1"},
         {"1", "x", "x"}
     };
-    assertArrayEquals(expected, new MazeSolver().solve(maze));
+    assertMazesEquals(expected, new MazeSolver().solve(maze));
+  }
+
+  private void assertMazesEquals(String[][] expected, String[][] actual) {
+    assertEquals(stringify(expected), stringify(actual));
+  }
+
+  private String stringify(String[][] expected) {
+    List<String> rows = new ArrayList<>();
+    for (String[] row : expected
+    ) {
+      rows.add(String.join(" ", row));
+    }
+    return String.join("\n", rows);
   }
 }
