@@ -68,6 +68,22 @@ class MazeSolverTest {
     assertMazesEquals(expected, new MazeSolver().solve(maze));
   }
 
+  @Test
+  void solves_a_flipped_H_shape() {
+    String[][] maze = {
+        {"S", "0", "0"},
+        {"1", "0", "1"},
+        {"0", "0", "E"}
+    };
+    String[][] expected = {
+        {"x", "x", "0"},
+        {"1", "x", "1"},
+        {"0", "x", "x"}
+    };
+
+    assertMazesEquals(expected, new MazeSolver().solve(maze));
+  }
+
   private void assertMazesEquals(String[][] expected, String[][] actual) {
     assertEquals(stringify(expected), stringify(actual));
   }
