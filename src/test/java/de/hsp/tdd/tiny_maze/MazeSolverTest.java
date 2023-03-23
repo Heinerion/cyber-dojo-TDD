@@ -2,8 +2,6 @@ package de.hsp.tdd.tiny_maze;
 
 import org.junit.jupiter.api.*;
 
-import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -84,16 +82,24 @@ class MazeSolverTest {
     assertMazesEquals(expected, new MazeSolver().solve(maze));
   }
 
-  private void assertMazesEquals(String[][] expected, String[][] actual) {
-    assertEquals(stringify(expected), stringify(actual));
+  @Test
+  void solves_a_O_shape() {
+    String[][] maze = {
+        {"S", "0", "0"},
+        {"0", "1", "0"},
+        {"0", "E", "0"}
+    };
+    String[][] expected = {
+        {"x", "0", "0"},
+        {"x", "1", "0"},
+        {"x", "x", "0"}
+    };
+
+    assertMazesEquals(expected, new MazeSolver().solve(maze));
   }
 
-  private String stringify(String[][] expected) {
-    List<String> rows = new ArrayList<>();
-    for (String[] row : expected
-    ) {
-      rows.add(String.join(" ", row));
-    }
-    return String.join("\n", rows);
+  private void assertMazesEquals(String[][] expected, String[][] actual) {
+    assertEquals(MazeSolver.stringify(expected), MazeSolver.stringify(actual));
   }
+
 }

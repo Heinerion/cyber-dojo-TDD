@@ -1,6 +1,7 @@
 package de.hsp.tdd.tiny_maze;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MazeSolver {
 
@@ -13,23 +14,38 @@ public class MazeSolver {
   int maxRow;
   int maxCol;
 
-  private String[][] workingCopy;
+  private Tile[][] workingCopy;
   boolean endReached = false;
 
   public String[][] solve(String[][] maze) {
     maxRow = maze.length;
     maxCol = maze[0].length;
 
-    workingCopy = new String[maxRow][maxCol];
-    for (int row = 0; row < maxRow; row++) {
-      workingCopy[row] = Arrays.copyOf(maze[row], maxCol);
-    }
-
+    initWorkingCopy(maze);
     while (!endReached) {
       updateWorkingCopy();
     }
+    return convert(workingCopy);
+  }
 
-    return workingCopy;
+  private void initWorkingCopy(String[][] maze) {
+    workingCopy = new Tile[maxRow][maxCol];
+    for (int row = 0; row < maxRow; row++) {
+      for (int col = 0; col < maxCol; col++) {
+        workingCopy[row][col] = new Tile(Type.of(maze[row][col]).orElse(null));
+      }
+    }
+  }
+
+  private String[][] convert(Tile[][] workingCopy) {
+    String[][] result = new String[maxRow][maxCol];
+    for (int row = 0; row < maxRow; row++) {
+      for (int col = 0; col < maxCol; col++) {
+        Tile field = workingCopy[row][col];
+        result[row][col] = field.partOfSolution ? "x" : field.initialSymbol.symbol;
+      }
+    }
+    return result;
   }
 
   private void updateWorkingCopy() {
@@ -43,39 +59,52 @@ public class MazeSolver {
   }
 
   private boolean updateField(int row, int col) {
-    String symbol = workingCopy[row][col];
-    if (symbol.equalsIgnoreCase(WALL)
-        || symbol.equalsIgnoreCase(VISITED)) {
+    Tile field = workingCopy[row][col];
+    if (field.is(Type.WALL) || field.visited) {
       return false;
     }
 
-    return visit(row, col, symbol);
+    return visit(row, col, field);
   }
 
-  private boolean visit(int row, int col, String symbol) {
-    List<String> neighbors = getNeighbors(row, col);
-    boolean isStart = symbol.equalsIgnoreCase(START);
-    boolean hasVisitedNeighbour = neighbors.contains(VISITED);
-    boolean isPossibleBridge = neighbors.contains(END) || neighbors.contains(FREE);
-    boolean isEnd = symbol.equalsIgnoreCase(END);
+  private boolean visit(int row, int col, Tile field) {
+    List<Tile> neighbors = getNeighbors(row, col);
+    List<Tile> visitedNeighbours = neighbors.stream().filter(t -> t.visited).collect(Collectors.toList());
+    boolean hasVisitedNeighbour = !visitedNeighbours.isEmpty();
+    boolean isPossibleBridge = neighbors.stream().anyMatch(t -> t.is(Type.END) || !t.visited && t.is(Type.FREE));
 
-    if (isStart
-        || hasVisitedNeighbour && isPossibleBridge) {
-      workingCopy[row][col] = VISITED;
+    if (visitedNeighbours.size() > 1) {
+      // we are looking for the last leaf of a single branch
+      return false;
+    }
+
+    field.precessor = visitedNeighbours.stream().findFirst().orElse(null);
+
+    if (hasVisitedNeighbour && field.is(Type.END)) {
+      workingCopy[row][col].visited = true;
+      endReached = true;
+
+      field.partOfSolution = true;
+      Tile parent = field.precessor;
+      while (parent != null) {
+        parent.partOfSolution = true;
+        parent = parent.precessor;
+      }
+
       return true;
     }
 
-    if (hasVisitedNeighbour && isEnd) {
-      workingCopy[row][col] = VISITED;
-      endReached = true;
+    if (field.is(Type.START)
+        || hasVisitedNeighbour && isPossibleBridge) {
+      workingCopy[row][col].visited = true;
       return true;
     }
 
     return false;
   }
 
-  private List<String> getNeighbors(int row, int col) {
-    List<String> neighbours = new ArrayList<>();
+  private List<Tile> getNeighbors(int row, int col) {
+    List<Tile> neighbours = new ArrayList<>();
     getIfInBounds(row - 1, col).ifPresent(neighbours::add);
     getIfInBounds(row + 1, col).ifPresent(neighbours::add);
     getIfInBounds(row, col - 1).ifPresent(neighbours::add);
@@ -83,9 +112,57 @@ public class MazeSolver {
     return neighbours;
   }
 
-  private Optional<String> getIfInBounds(int row, int col) {
+  private Optional<Tile> getIfInBounds(int row, int col) {
     return row >= 0 && col >= 0 && row < maxRow && col < maxCol
         ? Optional.of(workingCopy[row][col])
         : Optional.empty();
+  }
+
+  public static String stringify(String[][] maze) {
+    List<String> rows = new ArrayList<>();
+    for (String[] row : maze) {
+      rows.add(String.join(" ", row));
+    }
+    return String.join("\n", rows);
+  }
+
+  private static final class Tile {
+    private final Type initialSymbol;
+    private Tile precessor;
+
+    private boolean visited;
+    private boolean partOfSolution;
+
+    private Tile(Type initialSymbol) {
+      this.initialSymbol = initialSymbol;
+    }
+
+    boolean is(Type type) {
+      return type == initialSymbol;
+    }
+
+    @Override
+    public String toString() {
+      return initialSymbol.symbol;
+    }
+  }
+
+  private enum Type {
+    START(MazeSolver.START),
+    END(MazeSolver.END),
+    FREE(MazeSolver.FREE),
+    WALL(MazeSolver.WALL);
+
+    private final String symbol;
+
+    Type(String symbol) {
+      this.symbol = symbol;
+    }
+
+    static Optional<Type> of(String symbol) {
+      return Arrays.stream(Type.values())
+          .filter(t -> t.symbol.equalsIgnoreCase(symbol))
+          .findFirst();
+    }
   }
 }
