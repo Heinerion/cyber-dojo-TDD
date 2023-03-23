@@ -7,22 +7,22 @@ public class MazeSolver {
   public static final String START = "S";
   public static final String END = "E";
   public static final String WALL = "1";
-  public static final String OPEN = "0";
+  public static final String FREE = "0";
   public static final String VISITED = "x";
 
-  int maxY;
-  int maxX;
+  int maxRow;
+  int maxCol;
 
   private String[][] workingCopy;
   boolean endReached = false;
 
   public String[][] solve(String[][] maze) {
-    maxY = maze.length;
-    maxX = maze[0].length;
+    maxRow = maze.length;
+    maxCol = maze[0].length;
 
-    workingCopy = new String[maxY][maxX];
-    for (int row = 0; row < maxY; row++) {
-      workingCopy[row] = Arrays.copyOf(maze[row], maxX);
+    workingCopy = new String[maxRow][maxCol];
+    for (int row = 0; row < maxRow; row++) {
+      workingCopy[row] = Arrays.copyOf(maze[row], maxCol);
     }
 
     while (!endReached) {
@@ -33,8 +33,8 @@ public class MazeSolver {
   }
 
   private void updateWorkingCopy() {
-    for (int row = 0; row < maxY; row++) {
-      for (int col = 0; col < maxX; col++) {
+    for (int row = 0; row < maxRow; row++) {
+      for (int col = 0; col < maxCol; col++) {
         if (updateField(row, col)) {
           return;
         }
@@ -43,26 +43,29 @@ public class MazeSolver {
   }
 
   private boolean updateField(int row, int col) {
-    String currentSymbol = workingCopy[row][col];
-    if (currentSymbol.equalsIgnoreCase(WALL)
-        || currentSymbol.equalsIgnoreCase(VISITED)) {
+    String symbol = workingCopy[row][col];
+    if (symbol.equalsIgnoreCase(WALL)
+        || symbol.equalsIgnoreCase(VISITED)) {
       return false;
     }
 
-    if (currentSymbol.equalsIgnoreCase(START)) {
-      workingCopy[row][col] = VISITED;
-      return true;
-    }
+    return visit(row, col, symbol);
+  }
 
+  private boolean visit(int row, int col, String symbol) {
     List<String> neighbors = getNeighbors(row, col);
-    if (neighbors.contains(VISITED)
-        && (neighbors.contains(END) || neighbors.contains(OPEN))) {
+    boolean isStart = symbol.equalsIgnoreCase(START);
+    boolean hasVisitedNeighbour = neighbors.contains(VISITED);
+    boolean isPossibleBridge = neighbors.contains(END) || neighbors.contains(FREE);
+    boolean isEnd = symbol.equalsIgnoreCase(END);
+
+    if (isStart
+        || hasVisitedNeighbour && isPossibleBridge) {
       workingCopy[row][col] = VISITED;
       return true;
     }
 
-    if (neighbors.contains(VISITED)
-        && currentSymbol.equalsIgnoreCase(END)) {
+    if (hasVisitedNeighbour && isEnd) {
       workingCopy[row][col] = VISITED;
       endReached = true;
       return true;
@@ -81,10 +84,8 @@ public class MazeSolver {
   }
 
   private Optional<String> getIfInBounds(int row, int col) {
-    if (row < 0 || col < 0 || row >= maxY || col >= maxX) {
-      return Optional.empty();
-    }
-
-    return Optional.of(workingCopy[row][col]);
+    return row >= 0 && col >= 0 && row < maxRow && col < maxCol
+        ? Optional.of(workingCopy[row][col])
+        : Optional.empty();
   }
 }
