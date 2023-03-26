@@ -10,7 +10,7 @@ final class Tile {
   private boolean partOfSolution;
 
   Tile(String initialSymbol) {
-    this.symbol = Tile.TileType.of(initialSymbol).orElse(null);
+    this.symbol = TileType.of(initialSymbol).orElse(null);
   }
 
   public boolean isVisited() {
@@ -55,10 +55,10 @@ final class Tile {
   }
 
   private enum TileType {
-    START(MazeSolver.START),
-    END(MazeSolver.END),
-    FREE(MazeSolver.FREE),
-    WALL(MazeSolver.WALL);
+    START("S"),
+    END("E"),
+    FREE("0"),
+    WALL("1");
 
     private final String symbol;
 

@@ -5,11 +5,6 @@ import java.util.stream.Collectors;
 
 public class MazeSolver {
 
-  public static final String START = "S";
-  public static final String END = "E";
-  public static final String WALL = "1";
-  public static final String FREE = "0";
-
   int numRows;
   int numCols;
 
