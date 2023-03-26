@@ -9,8 +9,8 @@ final class Tile {
   private boolean visited;
   private boolean partOfSolution;
 
-  Tile(TileType initialSymbol) {
-    this.symbol = initialSymbol;
+  Tile(String initialSymbol) {
+    this.symbol = Tile.TileType.of(initialSymbol).orElse(null);
   }
 
   public Tile getPredecessor() {
@@ -33,8 +33,23 @@ final class Tile {
     this.partOfSolution = partOfSolution;
   }
 
-  boolean is(TileType type) {
-    return type == symbol;
+  public boolean isNotVisited() {
+    // We do not need to check walls, so they count as "visited"
+    return symbol != TileType.WALL
+        && !visited;
+  }
+
+  public boolean isPotentialNextStep() {
+    return symbol == TileType.END
+        || symbol == TileType.FREE && !visited;
+  }
+
+  public boolean isStart() {
+    return symbol == TileType.START;
+  }
+
+  public boolean isEnd() {
+    return symbol == TileType.END;
   }
 
   @Override
@@ -42,7 +57,7 @@ final class Tile {
     return partOfSolution ? "x" : symbol.getSymbol();
   }
 
-  enum TileType {
+  private enum TileType {
     START(MazeSolver.START),
     END(MazeSolver.END),
     FREE(MazeSolver.FREE),

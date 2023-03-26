@@ -31,7 +31,7 @@ public class MazeSolver {
     workingCopy = new Tile[numRows][numCols];
     for (int row = 0; row < numRows; row++) {
       for (int col = 0; col < numCols; col++) {
-        workingCopy[row][col] = new Tile(Tile.TileType.of(maze[row][col]).orElse(null));
+        workingCopy[row][col] = new Tile(maze[row][col]);
       }
     }
   }
@@ -55,8 +55,7 @@ public class MazeSolver {
   }
 
   private void updateField(int row, int col) {
-    Tile field = workingCopy[row][col];
-    if (!field.is(Tile.TileType.WALL) && !field.isVisited()) {
+    if (workingCopy[row][col].isNotVisited()) {
       visit(row, col);
     }
   }
@@ -72,17 +71,17 @@ public class MazeSolver {
   }
 
   private void visitLeaf(Tile field, List<Tile> neighbors, List<Tile> visitedNeighbours) {
-    boolean isPossibleBridge = neighbors.stream().anyMatch(t -> t.is(Tile.TileType.END) || !t.isVisited() && t.is(Tile.TileType.FREE));
+    boolean isPossibleBridge = neighbors.stream().anyMatch(Tile::isPotentialNextStep);
     boolean hasVisitedNeighbour = !visitedNeighbours.isEmpty();
     Tile predecessor = visitedNeighbours.stream().findFirst().orElse(null);
 
     // The check for the end tile has to go first.
     // Otherwise, the end tile could be considered a "bridge" and the end condition would never be met
-    if (hasVisitedNeighbour && field.is(Tile.TileType.END)) {
+    if (hasVisitedNeighbour && field.isEnd()) {
       markAsVisited(field, predecessor);
       endReached = true;
       markSolution(field);
-    } else if (field.is(Tile.TileType.START)
+    } else if (field.isStart()
         || hasVisitedNeighbour && isPossibleBridge) {
       markAsVisited(field, predecessor);
     }
