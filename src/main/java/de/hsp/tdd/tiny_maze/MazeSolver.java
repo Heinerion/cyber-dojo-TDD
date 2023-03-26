@@ -51,9 +51,7 @@ public class MazeSolver {
   private void updateWorkingCopy() {
     for (int row = 0; row < maxRow; row++) {
       for (int col = 0; col < maxCol; col++) {
-        if (updateField(row, col)) {
-          return;
-        }
+        updateField(row, col);
       }
     }
   }
