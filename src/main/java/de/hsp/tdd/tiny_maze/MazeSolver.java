@@ -9,17 +9,16 @@ public class MazeSolver {
   public static final String END = "E";
   public static final String WALL = "1";
   public static final String FREE = "0";
-  public static final String VISITED = "x";
 
-  int maxRow;
-  int maxCol;
+  int numRows;
+  int numCols;
 
   private Tile[][] workingCopy;
   boolean endReached = false;
 
   public String[][] solve(String[][] maze) {
-    maxRow = maze.length;
-    maxCol = maze[0].length;
+    numRows = maze.length;
+    numCols = maze[0].length;
 
     initWorkingCopy(maze);
     while (!endReached) {
@@ -29,28 +28,28 @@ public class MazeSolver {
   }
 
   private void initWorkingCopy(String[][] maze) {
-    workingCopy = new Tile[maxRow][maxCol];
-    for (int row = 0; row < maxRow; row++) {
-      for (int col = 0; col < maxCol; col++) {
+    workingCopy = new Tile[numRows][numCols];
+    for (int row = 0; row < numRows; row++) {
+      for (int col = 0; col < numCols; col++) {
         workingCopy[row][col] = new Tile(Type.of(maze[row][col]).orElse(null));
       }
     }
   }
 
   private String[][] convert(Tile[][] workingCopy) {
-    String[][] result = new String[maxRow][maxCol];
-    for (int row = 0; row < maxRow; row++) {
-      for (int col = 0; col < maxCol; col++) {
+    String[][] result = new String[numRows][numCols];
+    for (int row = 0; row < numRows; row++) {
+      for (int col = 0; col < numCols; col++) {
         Tile field = workingCopy[row][col];
-        result[row][col] = field.partOfSolution ? "x" : field.initialSymbol.symbol;
+        result[row][col] = field.partOfSolution ? "x" : field.symbol.symbol;
       }
     }
     return result;
   }
 
   private void updateWorkingCopy() {
-    for (int row = 0; row < maxRow; row++) {
-      for (int col = 0; col < maxCol; col++) {
+    for (int row = 0; row < numRows; row++) {
+      for (int col = 0; col < numCols; col++) {
         updateField(row, col);
       }
     }
@@ -111,7 +110,7 @@ public class MazeSolver {
   }
 
   private Optional<Tile> getIfInBounds(int row, int col) {
-    return row >= 0 && col >= 0 && row < maxRow && col < maxCol
+    return row >= 0 && col >= 0 && row < numRows && col < numCols
         ? Optional.of(workingCopy[row][col])
         : Optional.empty();
   }
@@ -125,23 +124,23 @@ public class MazeSolver {
   }
 
   private static final class Tile {
-    private final Type initialSymbol;
+    private final Type symbol;
     private Tile precessor;
 
     private boolean visited;
     private boolean partOfSolution;
 
     private Tile(Type initialSymbol) {
-      this.initialSymbol = initialSymbol;
+      this.symbol = initialSymbol;
     }
 
     boolean is(Type type) {
-      return type == initialSymbol;
+      return type == symbol;
     }
 
     @Override
     public String toString() {
-      return initialSymbol.symbol;
+      return symbol.symbol;
     }
   }
 
