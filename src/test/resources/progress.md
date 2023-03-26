@@ -52,7 +52,7 @@
 - [ ] [roman_numerals](../java/de/hsp/tdd/roman_numerals/readme.txt)
 - [ ] [saddle_points](../java/de/hsp/tdd/saddle_points/readme.txt)
 - [ ] [tennis](../java/de/hsp/tdd/tennis/readme.txt)
-- [ ] [tiny_maze](../java/de/hsp/tdd/tiny_maze/readme.txt)
+- [x] [tiny_maze](../java/de/hsp/tdd/tiny_maze/readme.txt)
 - [ ] [unsplice](../java/de/hsp/tdd/unsplice/readme.txt)
 - [ ] [vending_machine](../java/de/hsp/tdd/vending_machine/readme.txt)
 - [ ] [wonderland_number](../java/de/hsp/tdd/wonderland_number/readme.txt)
