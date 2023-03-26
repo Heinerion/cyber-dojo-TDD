@@ -56,43 +56,49 @@ public class MazeSolver {
 
   private void updateField(int row, int col) {
     Tile field = workingCopy[row][col];
-    if (field.is(Type.WALL) || field.visited) {
-      return;
+    if (!field.is(Type.WALL) && !field.visited) {
+      visit(row, col);
     }
-
-    visit(row, col, field);
   }
 
-  private void visit(int row, int col, Tile field) {
+  private void visit(int row, int col) {
     List<Tile> neighbors = getNeighbors(row, col);
     List<Tile> visitedNeighbours = neighbors.stream().filter(t -> t.visited).collect(Collectors.toList());
-    boolean hasVisitedNeighbour = !visitedNeighbours.isEmpty();
+
+    // we are looking for the last leaf of a single branch
+    if (visitedNeighbours.size() <= 1) {
+      visitLeaf(workingCopy[row][col], neighbors, visitedNeighbours);
+    }
+  }
+
+  private void visitLeaf(Tile field, List<Tile> neighbors, List<Tile> visitedNeighbours) {
     boolean isPossibleBridge = neighbors.stream().anyMatch(t -> t.is(Type.END) || !t.visited && t.is(Type.FREE));
+    boolean hasVisitedNeighbour = !visitedNeighbours.isEmpty();
+    Tile predecessor = visitedNeighbours.stream().findFirst().orElse(null);
 
-    if (visitedNeighbours.size() > 1) {
-      // we are looking for the last leaf of a single branch
-      return;
-    }
-
-    field.precessor = visitedNeighbours.stream().findFirst().orElse(null);
-
+    // The check for the end tile has to go first.
+    // Otherwise, the end tile could be considered a "bridge" and the end condition would never be met
     if (hasVisitedNeighbour && field.is(Type.END)) {
-      workingCopy[row][col].visited = true;
+      markAsVisited(field, predecessor);
       endReached = true;
-
-      field.partOfSolution = true;
-      Tile parent = field.precessor;
-      while (parent != null) {
-        parent.partOfSolution = true;
-        parent = parent.precessor;
-      }
-
-      return;
-    }
-
-    if (field.is(Type.START)
+      markSolution(field);
+    } else if (field.is(Type.START)
         || hasVisitedNeighbour && isPossibleBridge) {
-      workingCopy[row][col].visited = true;
+      markAsVisited(field, predecessor);
+    }
+  }
+
+  private void markAsVisited(Tile field, Tile predecessor) {
+    field.precessor = predecessor;
+    field.visited = true;
+  }
+
+  private void markSolution(Tile field) {
+    field.partOfSolution = true;
+    Tile parent = field.precessor;
+    while (parent != null) {
+      parent.partOfSolution = true;
+      parent = parent.precessor;
     }
   }
 
