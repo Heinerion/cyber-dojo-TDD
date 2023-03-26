@@ -55,16 +55,16 @@ public class MazeSolver {
     }
   }
 
-  private boolean updateField(int row, int col) {
+  private void updateField(int row, int col) {
     Tile field = workingCopy[row][col];
     if (field.is(Type.WALL) || field.visited) {
-      return false;
+      return;
     }
 
-    return visit(row, col, field);
+    visit(row, col, field);
   }
 
-  private boolean visit(int row, int col, Tile field) {
+  private void visit(int row, int col, Tile field) {
     List<Tile> neighbors = getNeighbors(row, col);
     List<Tile> visitedNeighbours = neighbors.stream().filter(t -> t.visited).collect(Collectors.toList());
     boolean hasVisitedNeighbour = !visitedNeighbours.isEmpty();
@@ -72,7 +72,7 @@ public class MazeSolver {
 
     if (visitedNeighbours.size() > 1) {
       // we are looking for the last leaf of a single branch
-      return false;
+      return;
     }
 
     field.precessor = visitedNeighbours.stream().findFirst().orElse(null);
@@ -88,16 +88,13 @@ public class MazeSolver {
         parent = parent.precessor;
       }
 
-      return true;
+      return;
     }
 
     if (field.is(Type.START)
         || hasVisitedNeighbour && isPossibleBridge) {
       workingCopy[row][col].visited = true;
-      return true;
     }
-
-    return false;
   }
 
   private List<Tile> getNeighbors(int row, int col) {
