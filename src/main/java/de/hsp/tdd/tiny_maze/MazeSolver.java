@@ -31,16 +31,6 @@ public class MazeSolver {
     }
   }
 
-  private String[][] convert(Tile[][] workingCopy) {
-    String[][] result = new String[numRows][numCols];
-    for (int row = 0; row < numRows; row++) {
-      for (int col = 0; col < numCols; col++) {
-        result[row][col] = String.valueOf(workingCopy[row][col]);
-      }
-    }
-    return result;
-  }
-
   private void updateWorkingCopy() {
     for (int row = 0; row < numRows; row++) {
       for (int col = 0; col < numCols; col++) {
@@ -65,6 +55,21 @@ public class MazeSolver {
     }
   }
 
+  private List<Tile> getNeighbors(int row, int col) {
+    List<Tile> neighbours = new ArrayList<>();
+    getIfInBounds(row - 1, col).ifPresent(neighbours::add);
+    getIfInBounds(row + 1, col).ifPresent(neighbours::add);
+    getIfInBounds(row, col - 1).ifPresent(neighbours::add);
+    getIfInBounds(row, col + 1).ifPresent(neighbours::add);
+    return neighbours;
+  }
+
+  private Optional<Tile> getIfInBounds(int row, int col) {
+    return row >= 0 && col >= 0 && row < numRows && col < numCols
+        ? Optional.of(workingCopy[row][col])
+        : Optional.empty();
+  }
+
   private void visitLeaf(Tile field, List<Tile> neighbors, List<Tile> visitedNeighbours) {
     boolean isPossibleBridge = neighbors.stream().anyMatch(Tile::isPotentialNextStep);
     boolean hasVisitedNeighbour = !visitedNeighbours.isEmpty();
@@ -82,19 +87,14 @@ public class MazeSolver {
     }
   }
 
-  private List<Tile> getNeighbors(int row, int col) {
-    List<Tile> neighbours = new ArrayList<>();
-    getIfInBounds(row - 1, col).ifPresent(neighbours::add);
-    getIfInBounds(row + 1, col).ifPresent(neighbours::add);
-    getIfInBounds(row, col - 1).ifPresent(neighbours::add);
-    getIfInBounds(row, col + 1).ifPresent(neighbours::add);
-    return neighbours;
-  }
-
-  private Optional<Tile> getIfInBounds(int row, int col) {
-    return row >= 0 && col >= 0 && row < numRows && col < numCols
-        ? Optional.of(workingCopy[row][col])
-        : Optional.empty();
+  private String[][] convert(Tile[][] workingCopy) {
+    String[][] result = new String[numRows][numCols];
+    for (int row = 0; row < numRows; row++) {
+      for (int col = 0; col < numCols; col++) {
+        result[row][col] = String.valueOf(workingCopy[row][col]);
+      }
+    }
+    return result;
   }
 
   public static String stringify(String[][] maze) {
