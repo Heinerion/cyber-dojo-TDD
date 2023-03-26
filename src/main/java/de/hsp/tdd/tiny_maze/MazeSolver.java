@@ -40,12 +40,12 @@ public class MazeSolver {
   }
 
   private void updateField(int row, int col) {
-    if (workingCopy[row][col].isNotVisited()) {
-      visit(row, col);
+    if (workingCopy[row][col].needsVisit()) {
+      visitField(row, col);
     }
   }
 
-  private void visit(int row, int col) {
+  private void visitField(int row, int col) {
     List<Tile> neighbors = getNeighbors(row, col);
     List<Tile> visitedNeighbours = neighbors.stream().filter(Tile::isVisited).collect(Collectors.toList());
 

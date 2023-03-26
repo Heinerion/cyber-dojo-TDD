@@ -9,15 +9,15 @@ final class Tile {
   private boolean visited;
   private boolean partOfSolution;
 
-  Tile(String initialSymbol) {
-    this.symbol = TileType.of(initialSymbol).orElse(null);
+  Tile(String symbol) {
+    this.symbol = TileType.of(symbol).orElse(null);
   }
 
   public boolean isVisited() {
     return visited;
   }
 
-  public boolean isNotVisited() {
+  public boolean needsVisit() {
     // We do not need to check walls, so they count as "visited"
     return symbol != TileType.WALL
         && !visited;
