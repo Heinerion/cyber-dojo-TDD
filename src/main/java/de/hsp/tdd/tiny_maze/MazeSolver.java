@@ -31,7 +31,7 @@ public class MazeSolver {
     workingCopy = new Tile[numRows][numCols];
     for (int row = 0; row < numRows; row++) {
       for (int col = 0; col < numCols; col++) {
-        workingCopy[row][col] = new Tile(Type.of(maze[row][col]).orElse(null));
+        workingCopy[row][col] = new Tile(Tile.TileType.of(maze[row][col]).orElse(null));
       }
     }
   }
@@ -56,14 +56,14 @@ public class MazeSolver {
 
   private void updateField(int row, int col) {
     Tile field = workingCopy[row][col];
-    if (!field.is(Type.WALL) && !field.visited) {
+    if (!field.is(Tile.TileType.WALL) && !field.isVisited()) {
       visit(row, col);
     }
   }
 
   private void visit(int row, int col) {
     List<Tile> neighbors = getNeighbors(row, col);
-    List<Tile> visitedNeighbours = neighbors.stream().filter(t -> t.visited).collect(Collectors.toList());
+    List<Tile> visitedNeighbours = neighbors.stream().filter(Tile::isVisited).collect(Collectors.toList());
 
     // we are looking for the last leaf of a single branch
     if (visitedNeighbours.size() <= 1) {
@@ -72,33 +72,33 @@ public class MazeSolver {
   }
 
   private void visitLeaf(Tile field, List<Tile> neighbors, List<Tile> visitedNeighbours) {
-    boolean isPossibleBridge = neighbors.stream().anyMatch(t -> t.is(Type.END) || !t.visited && t.is(Type.FREE));
+    boolean isPossibleBridge = neighbors.stream().anyMatch(t -> t.is(Tile.TileType.END) || !t.isVisited() && t.is(Tile.TileType.FREE));
     boolean hasVisitedNeighbour = !visitedNeighbours.isEmpty();
     Tile predecessor = visitedNeighbours.stream().findFirst().orElse(null);
 
     // The check for the end tile has to go first.
     // Otherwise, the end tile could be considered a "bridge" and the end condition would never be met
-    if (hasVisitedNeighbour && field.is(Type.END)) {
+    if (hasVisitedNeighbour && field.is(Tile.TileType.END)) {
       markAsVisited(field, predecessor);
       endReached = true;
       markSolution(field);
-    } else if (field.is(Type.START)
+    } else if (field.is(Tile.TileType.START)
         || hasVisitedNeighbour && isPossibleBridge) {
       markAsVisited(field, predecessor);
     }
   }
 
   private void markAsVisited(Tile field, Tile predecessor) {
-    field.predecessor = predecessor;
-    field.visited = true;
+    field.setPredecessor(predecessor);
+    field.setVisited(true);
   }
 
   private void markSolution(Tile field) {
-    field.partOfSolution = true;
-    Tile parent = field.predecessor;
+    field.setPartOfSolution(true);
+    Tile parent = field.getPredecessor();
     while (parent != null) {
-      parent.partOfSolution = true;
-      parent = parent.predecessor;
+      parent.setPartOfSolution(true);
+      parent = parent.getPredecessor();
     }
   }
 
@@ -123,45 +123,5 @@ public class MazeSolver {
       rows.add(String.join(" ", row));
     }
     return String.join("\n", rows);
-  }
-
-  private static final class Tile {
-    private final Type symbol;
-    private Tile predecessor;
-
-    private boolean visited;
-    private boolean partOfSolution;
-
-    private Tile(Type initialSymbol) {
-      this.symbol = initialSymbol;
-    }
-
-    boolean is(Type type) {
-      return type == symbol;
-    }
-
-    @Override
-    public String toString() {
-      return partOfSolution ? "x" : symbol.symbol;
-    }
-  }
-
-  private enum Type {
-    START(MazeSolver.START),
-    END(MazeSolver.END),
-    FREE(MazeSolver.FREE),
-    WALL(MazeSolver.WALL);
-
-    private final String symbol;
-
-    Type(String symbol) {
-      this.symbol = symbol;
-    }
-
-    static Optional<Type> of(String symbol) {
-      return Arrays.stream(Type.values())
-          .filter(t -> t.symbol.equalsIgnoreCase(symbol))
-          .findFirst();
-    }
   }
 }
