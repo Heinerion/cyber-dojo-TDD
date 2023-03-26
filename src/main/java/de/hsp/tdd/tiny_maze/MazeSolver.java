@@ -40,8 +40,7 @@ public class MazeSolver {
     String[][] result = new String[numRows][numCols];
     for (int row = 0; row < numRows; row++) {
       for (int col = 0; col < numCols; col++) {
-        Tile field = workingCopy[row][col];
-        result[row][col] = field.partOfSolution ? "x" : field.symbol.symbol;
+        result[row][col] = String.valueOf(workingCopy[row][col]);
       }
     }
     return result;
@@ -137,7 +136,7 @@ public class MazeSolver {
 
     @Override
     public String toString() {
-      return symbol.symbol;
+      return partOfSolution ? "x" : symbol.symbol;
     }
   }
 
