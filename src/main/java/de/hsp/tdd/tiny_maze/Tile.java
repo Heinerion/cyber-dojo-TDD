@@ -13,24 +13,8 @@ final class Tile {
     this.symbol = Tile.TileType.of(initialSymbol).orElse(null);
   }
 
-  public Tile getPredecessor() {
-    return predecessor;
-  }
-
-  public void setPredecessor(Tile predecessor) {
-    this.predecessor = predecessor;
-  }
-
   public boolean isVisited() {
     return visited;
-  }
-
-  public void setVisited(boolean visited) {
-    this.visited = visited;
-  }
-
-  public void setPartOfSolution(boolean partOfSolution) {
-    this.partOfSolution = partOfSolution;
   }
 
   public boolean isNotVisited() {
@@ -50,6 +34,19 @@ final class Tile {
 
   public boolean isEnd() {
     return symbol == TileType.END;
+  }
+
+  public void markAsVisited(Tile predecessor) {
+    this.predecessor = predecessor;
+    this.visited = true;
+  }
+
+  public void markSolution() {
+    Tile currentTile = this;
+    while (currentTile != null) {
+      currentTile.partOfSolution = true;
+      currentTile = currentTile.predecessor;
+    }
   }
 
   @Override

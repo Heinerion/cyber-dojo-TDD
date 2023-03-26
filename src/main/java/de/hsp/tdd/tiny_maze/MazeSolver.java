@@ -78,26 +78,12 @@ public class MazeSolver {
     // The check for the end tile has to go first.
     // Otherwise, the end tile could be considered a "bridge" and the end condition would never be met
     if (hasVisitedNeighbour && field.isEnd()) {
-      markAsVisited(field, predecessor);
+      field.markAsVisited(predecessor);
       endReached = true;
-      markSolution(field);
+      field.markSolution();
     } else if (field.isStart()
         || hasVisitedNeighbour && isPossibleBridge) {
-      markAsVisited(field, predecessor);
-    }
-  }
-
-  private void markAsVisited(Tile field, Tile predecessor) {
-    field.setPredecessor(predecessor);
-    field.setVisited(true);
-  }
-
-  private void markSolution(Tile field) {
-    field.setPartOfSolution(true);
-    Tile parent = field.getPredecessor();
-    while (parent != null) {
-      parent.setPartOfSolution(true);
-      parent = parent.getPredecessor();
+      field.markAsVisited(predecessor);
     }
   }
 
