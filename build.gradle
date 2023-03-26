@@ -17,3 +17,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+// treat compiler warnings as errors
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ["-Werror"]
+}
