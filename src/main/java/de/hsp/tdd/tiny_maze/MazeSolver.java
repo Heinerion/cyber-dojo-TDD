@@ -1,7 +1,7 @@
 package de.hsp.tdd.tiny_maze;
 
 import java.util.*;
-import java.util.function.BiConsumer;
+import java.util.function.*;
 import java.util.stream.Collectors;
 
 public class MazeSolver {
@@ -24,8 +24,20 @@ public class MazeSolver {
   }
 
   private void initWorkingCopy(String[][] maze) {
-    workingCopy = new Tile[numRows][numCols];
-    walkMaze((row, col) -> workingCopy[row][col] = new Tile(maze[row][col]));
+    workingCopy = convert(maze, new Tile[numRows][numCols], Tile::new);
+  }
+
+  private <I, O> O[][] convert(I[][] input, O[][] output, Function<I, O> converter) {
+    walkMaze((row, col) -> output[row][col] = converter.apply(input[row][col]));
+    return output;
+  }
+
+  private void walkMaze(BiConsumer<Integer, Integer> action) {
+    for (int row = 0; row < numRows; row++) {
+      for (int col = 0; col < numCols; col++) {
+        action.accept(row, col);
+      }
+    }
   }
 
   private void updateWorkingCopy() {
@@ -81,17 +93,7 @@ public class MazeSolver {
   }
 
   private String[][] convert(Tile[][] workingCopy) {
-    String[][] result = new String[numRows][numCols];
-    walkMaze((row, col) -> result[row][col] = String.valueOf(workingCopy[row][col]));
-    return result;
-  }
-
-  private void walkMaze(BiConsumer<Integer, Integer> action) {
-    for (int row = 0; row < numRows; row++) {
-      for (int col = 0; col < numCols; col++) {
-        action.accept(row, col);
-      }
-    }
+    return convert(workingCopy, new String[numRows][numCols], String::valueOf);
   }
 
   public static String stringify(String[][] maze) {
