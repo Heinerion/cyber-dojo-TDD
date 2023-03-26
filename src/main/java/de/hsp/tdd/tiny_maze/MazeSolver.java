@@ -1,6 +1,7 @@
 package de.hsp.tdd.tiny_maze;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 public class MazeSolver {
@@ -24,19 +25,11 @@ public class MazeSolver {
 
   private void initWorkingCopy(String[][] maze) {
     workingCopy = new Tile[numRows][numCols];
-    for (int row = 0; row < numRows; row++) {
-      for (int col = 0; col < numCols; col++) {
-        workingCopy[row][col] = new Tile(maze[row][col]);
-      }
-    }
+    walkMaze((row, col) -> workingCopy[row][col] = new Tile(maze[row][col]));
   }
 
   private void updateWorkingCopy() {
-    for (int row = 0; row < numRows; row++) {
-      for (int col = 0; col < numCols; col++) {
-        updateField(row, col);
-      }
-    }
+    walkMaze(this::updateField);
   }
 
   private void updateField(int row, int col) {
@@ -89,12 +82,16 @@ public class MazeSolver {
 
   private String[][] convert(Tile[][] workingCopy) {
     String[][] result = new String[numRows][numCols];
+    walkMaze((row, col) -> result[row][col] = String.valueOf(workingCopy[row][col]));
+    return result;
+  }
+
+  private void walkMaze(BiConsumer<Integer, Integer> action) {
     for (int row = 0; row < numRows; row++) {
       for (int col = 0; col < numCols; col++) {
-        result[row][col] = String.valueOf(workingCopy[row][col]);
+        action.accept(row, col);
       }
     }
-    return result;
   }
 
   public static String stringify(String[][] maze) {
