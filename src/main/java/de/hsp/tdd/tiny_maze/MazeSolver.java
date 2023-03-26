@@ -89,16 +89,16 @@ public class MazeSolver {
   }
 
   private void markAsVisited(Tile field, Tile predecessor) {
-    field.precessor = predecessor;
+    field.predecessor = predecessor;
     field.visited = true;
   }
 
   private void markSolution(Tile field) {
     field.partOfSolution = true;
-    Tile parent = field.precessor;
+    Tile parent = field.predecessor;
     while (parent != null) {
       parent.partOfSolution = true;
-      parent = parent.precessor;
+      parent = parent.predecessor;
     }
   }
 
@@ -127,7 +127,7 @@ public class MazeSolver {
 
   private static final class Tile {
     private final Type symbol;
-    private Tile precessor;
+    private Tile predecessor;
 
     private boolean visited;
     private boolean partOfSolution;
