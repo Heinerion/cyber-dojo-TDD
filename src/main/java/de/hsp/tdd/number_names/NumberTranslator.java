@@ -14,6 +14,10 @@ public class NumberTranslator {
       return "zero";
     }
 
+    if (i < 0) {
+      return String.format("minus %s", translate(-i));
+    }
+
     this.rest = i;
 
     String text = "";

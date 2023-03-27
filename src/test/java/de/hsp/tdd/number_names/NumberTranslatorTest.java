@@ -223,4 +223,10 @@ class NumberTranslatorTest {
     assertEquals("eight billion, three hundred and forty eight million, three hundred and fifty nine thousand, one hundred and eighty five",
         new NumberTranslator().translate(8_348_359_185L));
   }
+
+  @Test
+  void translates_negative() {
+    assertEquals("minus eight billion, three hundred and forty eight million, three hundred and fifty nine thousand, one hundred and eighty five",
+        new NumberTranslator().translate(-8_348_359_185L));
+  }
 }
