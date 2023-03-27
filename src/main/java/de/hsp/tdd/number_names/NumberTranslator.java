@@ -30,7 +30,7 @@ public class NumberTranslator {
     String text = translateSmallNumbers((int) (rest % 1_000));
     String nameOfMagnitude = MAGNITUDES[this.magnitude];
     if (!nameOfMagnitude.equals(EMPTY)) {
-      text += " " + nameOfMagnitude + ", " + trailingText;
+      text += String.format(" %s, %s", nameOfMagnitude, trailingText);
     }
     return text;
   }
@@ -59,7 +59,7 @@ public class NumberTranslator {
   private String translateThreeDigits(int i) {
     String text = translateDigit(i / 100) + " hundred";
     if (i % 100 != 0) {
-      text += " and " + translateSmallNumbers(i % 100);
+      text += String.format(" and %s", translateSmallNumbers(i % 100));
     }
     return text;
   }
@@ -67,7 +67,7 @@ public class NumberTranslator {
   private String translateTwoDigitNumbers(int i) {
     String number = translatePowerOfTen(i / 10);
     if (i % 10 != 0) {
-      number += " " + translateDigit(i % 10);
+      number += String.format(" %s", translateDigit(i % 10));
     }
     return number;
   }
