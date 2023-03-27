@@ -18,6 +18,10 @@ public class NumberTranslator {
       return String.format("minus %s", translate(-i));
     }
 
+    return iterateMagnitudes(i);
+  }
+
+  private String iterateMagnitudes(long i) {
     this.rest = i;
 
     String text = "";
