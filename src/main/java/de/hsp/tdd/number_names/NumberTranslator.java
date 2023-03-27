@@ -8,7 +8,7 @@ public class NumberTranslator {
     if (i < 1000) {
       text = translateSmallNumbers(i);
     } else {
-      text = translateDigit(i / 1_000) + " thousand, "
+      text = translate(i / 1_000) + " thousand, "
           + translateSmallNumbers(i % 1_000);
     }
 
