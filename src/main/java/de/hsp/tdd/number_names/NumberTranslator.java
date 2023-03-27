@@ -73,56 +73,39 @@ public class NumberTranslator {
   }
 
   private String translatePowerOfTen(int i) {
-    String text;
     switch (i) {
       case 2:
-        text = "twenty";
-        break;
+        return "twenty";
       case 3:
-        text = "thirty";
-        break;
+        return "thirty";
       case 4:
-        text = "forty";
-        break;
+        return "forty";
       case 5:
-        text = "fifty";
-        break;
+        return "fifty";
       case 8:
-        text = "eighty";
-        break;
+        return "eighty";
       default:
-        text = translateDigit(i) + "ty";
+        return translateDigit(i) + "ty";
     }
-    return text;
   }
 
   private String translateTens(int i) {
-    String text;
-
-    switch (i) {
-      case 10:
-        text = "ten";
-        break;
-      case 11:
-        text = "eleven";
-        break;
-      case 12:
-        text = "twelve";
-        break;
-      case 13:
-        text = "thirteen";
-        break;
-      case 15:
-        text = "fifteen";
-        break;
-      case 18:
-        text = "eighteen";
-        break;
+    switch (i % 10) {
+      case 0:
+        return "ten";
+      case 1:
+        return "eleven";
+      case 2:
+        return "twelve";
+      case 3:
+        return "thirteen";
+      case 5:
+        return "fifteen";
+      case 8:
+        return "eighteen";
       default:
-        text = translateDigit(i % 10) + "teen";
+        return translateDigit(i % 10) + "teen";
     }
-
-    return text;
   }
 
   private String translateDigit(int i) {
