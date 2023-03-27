@@ -188,4 +188,10 @@ class NumberTranslatorTest {
   void translates_310() {
     assertEquals("three hundred and ten", new NumberTranslator().translate(310));
   }
+
+  //  o) 1501 --> one thousand, five hundred and one
+  @Test
+  void translates_1501() {
+    assertEquals("one thousand, five hundred and one", new NumberTranslator().translate(1501));
+  }
 }

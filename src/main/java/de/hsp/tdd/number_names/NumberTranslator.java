@@ -3,6 +3,19 @@ package de.hsp.tdd.number_names;
 public class NumberTranslator {
 
   public String translate(int i) {
+    String text;
+
+    if (i < 1000) {
+      text = translateSmallNumbers(i);
+    } else {
+      text = translateDigit(i / 1_000) + " thousand, "
+          + translateSmallNumbers(i % 1_000);
+    }
+
+    return text;
+  }
+
+  private String translateSmallNumbers(int i) {
     if (i < 10) {
       return translateDigit(i);
     }
