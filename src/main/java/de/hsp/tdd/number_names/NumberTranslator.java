@@ -16,7 +16,11 @@ public class NumberTranslator {
   }
 
   private String translateThreeDigits(int i) {
-    return translateDigit(i / 100) + " hundred";
+    String text = translateDigit(i / 100) + " hundred";
+    if (i % 100 != 0) {
+      text += " and " + translate(i % 100);
+    }
+    return text;
   }
 
   private String translateTwoDigitNumbers(int i) {
