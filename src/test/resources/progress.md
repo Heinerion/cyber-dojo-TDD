@@ -39,7 +39,7 @@
 - [ ] [mine_sweeper](../java/de/hsp/tdd/mine_sweeper/readme.txt)
 - [ ] [monty_hall](../java/de/hsp/tdd/monty_hall/readme.txt)
 - [ ] [number_chains](../java/de/hsp/tdd/number_chains/readme.txt)
-- [ ] [number_names](../java/de/hsp/tdd/number_names/readme.txt)
+- [x] [number_names](../java/de/hsp/tdd/number_names/readme.txt)
 - [ ] [phone_numbers](../java/de/hsp/tdd/phone_numbers/readme.txt)
 - [ ] [poker_hands](../java/de/hsp/tdd/poker_hands/readme.txt)
 - [ ] [prime_factors](../java/de/hsp/tdd/prime_factors/readme.txt)
