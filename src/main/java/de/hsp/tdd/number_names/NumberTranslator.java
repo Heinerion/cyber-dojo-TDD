@@ -47,7 +47,7 @@ public class NumberTranslator {
   }
 
   private String translateTwoDigitNumbers(int i) {
-    String number = translatePowerOfTen(i / 10 * 10);
+    String number = translatePowerOfTen(i / 10);
     if (i % 10 != 0) {
       number += " " + translateDigit(i % 10);
     }
@@ -57,23 +57,23 @@ public class NumberTranslator {
   private String translatePowerOfTen(int i) {
     String text;
     switch (i) {
-      case 20:
+      case 2:
         text = "twenty";
         break;
-      case 30:
+      case 3:
         text = "thirty";
         break;
-      case 40:
+      case 4:
         text = "forty";
         break;
-      case 50:
+      case 5:
         text = "fifty";
         break;
-      case 80:
+      case 8:
         text = "eighty";
         break;
       default:
-        text = translateDigit(i / 10) + "ty";
+        text = translateDigit(i) + "ty";
     }
     return text;
   }
