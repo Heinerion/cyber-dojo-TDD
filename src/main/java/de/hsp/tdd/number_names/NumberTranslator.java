@@ -2,10 +2,12 @@ package de.hsp.tdd.number_names;
 
 public class NumberTranslator {
 
+  private static final String[] DIGITS = new String[]{"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+
   public String translate(int i) {
     String text;
 
-    if (i < 1000) {
+    if (i < 1_000) {
       text = translateSmallNumbers(i);
     } else {
       text = translate(i / 1_000) + " thousand, "
@@ -15,6 +17,14 @@ public class NumberTranslator {
     return text;
   }
 
+  /**
+   * translates positive numbers up to 999
+   *
+   * @param i
+   *     number between 0 and 999
+   *
+   * @return the textual representation of the number
+   */
   private String translateSmallNumbers(int i) {
     if (i < 10) {
       return translateDigit(i);
@@ -98,40 +108,6 @@ public class NumberTranslator {
   }
 
   private String translateDigit(int i) {
-    String text;
-
-    switch (i) {
-      case 1:
-        text = "one";
-        break;
-      case 2:
-        text = "two";
-        break;
-      case 3:
-        text = "three";
-        break;
-      case 4:
-        text = "four";
-        break;
-      case 5:
-        text = "five";
-        break;
-      case 6:
-        text = "six";
-        break;
-      case 7:
-        text = "seven";
-        break;
-      case 8:
-        text = "eight";
-        break;
-      case 9:
-        text = "nine";
-        break;
-      default:
-        text = "-";
-    }
-
-    return text;
+    return DIGITS[i];
   }
 }
