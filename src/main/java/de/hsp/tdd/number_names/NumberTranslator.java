@@ -14,7 +14,11 @@ public class NumberTranslator {
   }
 
   private String translateTwoDigitNumbers(int i) {
-    return translatePowerOfTen(i / 10 * 10);
+    String number = translatePowerOfTen(i / 10 * 10);
+    if (i % 10 != 0) {
+      number += " " + translateDigit(i % 10);
+    }
+    return number;
   }
 
   private String translatePowerOfTen(int i) {
