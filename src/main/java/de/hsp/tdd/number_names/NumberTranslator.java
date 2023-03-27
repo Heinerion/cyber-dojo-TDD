@@ -6,10 +6,10 @@ public class NumberTranslator {
   private static final String[] DIGITS = new String[]{"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
   private static final String[] MAGNITUDES = new String[]{EMPTY, "thousand", "million", "billion", "trillion"};
 
-  private int rest = 0;
+  private long rest = 0;
   private int magnitude = 0;
 
-  public String translate(int i) {
+  public String translate(long i) {
     if (i == 0) {
       return "zero";
     }
@@ -27,7 +27,7 @@ public class NumberTranslator {
   }
 
   private String translateMagnitude(String trailingText) {
-    String text = translateSmallNumbers(rest % 1_000);
+    String text = translateSmallNumbers((int) (rest % 1_000));
     String nameOfMagnitude = MAGNITUDES[this.magnitude];
     if (!nameOfMagnitude.equals(EMPTY)) {
       text += " " + nameOfMagnitude + ", " + trailingText;
