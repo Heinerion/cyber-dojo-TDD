@@ -170,4 +170,22 @@ class NumberTranslatorTest {
   void translates_317() {
     assertEquals("three hundred and seventeen", new NumberTranslator().translate(317));
   }
+
+  //  o) 99 --> ninety nine
+  @Test
+  void translates_99() {
+    assertEquals("ninety nine", new NumberTranslator().translate(99));
+  }
+
+  //  o) 300 --> three hundred
+  @Test
+  void translates_300() {
+    assertEquals("three hundred", new NumberTranslator().translate(300));
+  }
+
+  //  o) 310 --> three hundred and ten
+  @Test
+  void translates_310() {
+    assertEquals("three hundred and ten", new NumberTranslator().translate(310));
+  }
 }
