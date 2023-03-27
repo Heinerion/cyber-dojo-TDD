@@ -7,6 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class NumberTranslatorTest {
   @Test
+  void translates_0() {
+    assertEquals("zero", new NumberTranslator().translate(0));
+  }
+
+  @Test
   void translates_1() {
     assertEquals("one", new NumberTranslator().translate(1));
   }
