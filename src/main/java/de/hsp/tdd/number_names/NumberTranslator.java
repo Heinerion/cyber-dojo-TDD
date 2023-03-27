@@ -2,18 +2,36 @@ package de.hsp.tdd.number_names;
 
 public class NumberTranslator {
 
+  private static final String EMPTY = "";
   private static final String[] DIGITS = new String[]{"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+  private static final String[] MAGNITUDES = new String[]{EMPTY, "thousand", "million", "billion", "trillion"};
+
+  private int rest = 0;
+  private int magnitude = 0;
 
   public String translate(int i) {
-    String text;
-
-    if (i < 1_000) {
-      text = translateSmallNumbers(i);
-    } else {
-      text = translate(i / 1_000) + " thousand, "
-          + translateSmallNumbers(i % 1_000);
+    if (i == 0) {
+      return "zero";
     }
 
+    this.rest = i;
+
+    String text = "";
+    while (rest > 0) {
+      text = translateMagnitude(text);
+      this.magnitude++;
+      this.rest /= 1_000;
+    }
+
+    return text;
+  }
+
+  private String translateMagnitude(String trailingText) {
+    String text = translateSmallNumbers(rest % 1_000);
+    String nameOfMagnitude = MAGNITUDES[this.magnitude];
+    if (!nameOfMagnitude.equals(EMPTY)) {
+      text += " " + nameOfMagnitude + ", " + trailingText;
+    }
     return text;
   }
 
@@ -41,7 +59,7 @@ public class NumberTranslator {
   private String translateThreeDigits(int i) {
     String text = translateDigit(i / 100) + " hundred";
     if (i % 100 != 0) {
-      text += " and " + translate(i % 100);
+      text += " and " + translateSmallNumbers(i % 100);
     }
     return text;
   }
