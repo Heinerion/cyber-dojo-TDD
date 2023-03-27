@@ -150,4 +150,14 @@ class NumberTranslatorTest {
   void translates_38() {
     assertEquals("thirty eight", new NumberTranslator().translate(38));
   }
+
+  @Test
+  void translates_100() {
+    assertEquals("one hundred", new NumberTranslator().translate(100));
+  }
+
+  @Test
+  void translates_400() {
+    assertEquals("four hundred", new NumberTranslator().translate(400));
+  }
 }

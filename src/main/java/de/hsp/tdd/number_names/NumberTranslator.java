@@ -9,8 +9,14 @@ public class NumberTranslator {
     if (i < 20) {
       return translateTens(i);
     }
+    if (i < 100) {
+      return translateTwoDigitNumbers(i);
+    }
+    return translateThreeDigits(i);
+  }
 
-    return translateTwoDigitNumbers(i);
+  private String translateThreeDigits(int i) {
+    return translateDigit(i / 100) + " hundred";
   }
 
   private String translateTwoDigitNumbers(int i) {
