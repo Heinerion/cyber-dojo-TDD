@@ -3,9 +3,42 @@ package de.hsp.tdd.number_names;
 public class NumberTranslator {
 
   public String translate(int i) {
-    return i < 10
-        ? translateDigit(i)
-        : translateTens(i);
+    if (i < 10) {
+      return translateDigit(i);
+    }
+    if (i < 20) {
+      return translateTens(i);
+    }
+
+    return translateTwoDigitNumbers(i);
+  }
+
+  private String translateTwoDigitNumbers(int i) {
+    return translatePowerOfTen(i / 10 * 10);
+  }
+
+  private String translatePowerOfTen(int i) {
+    String text;
+    switch (i) {
+      case 20:
+        text = "twenty";
+        break;
+      case 30:
+        text = "thirty";
+        break;
+      case 40:
+        text = "forty";
+        break;
+      case 50:
+        text = "fifty";
+        break;
+      case 80:
+        text = "eighty";
+        break;
+      default:
+        text = translateDigit(i / 10) + "ty";
+    }
+    return text;
   }
 
   private String translateTens(int i) {

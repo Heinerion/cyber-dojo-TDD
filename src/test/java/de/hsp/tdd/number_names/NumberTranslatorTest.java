@@ -100,4 +100,44 @@ class NumberTranslatorTest {
   void translates_19() {
     assertEquals("nineteen", new NumberTranslator().translate(19));
   }
+
+  @Test
+  void translates_20() {
+    assertEquals("twenty", new NumberTranslator().translate(20));
+  }
+
+  @Test
+  void translates_30() {
+    assertEquals("thirty", new NumberTranslator().translate(30));
+  }
+
+  @Test
+  void translates_40() {
+    assertEquals("forty", new NumberTranslator().translate(40));
+  }
+
+  @Test
+  void translates_50() {
+    assertEquals("fifty", new NumberTranslator().translate(50));
+  }
+
+  @Test
+  void translates_60() {
+    assertEquals("sixty", new NumberTranslator().translate(60));
+  }
+
+  @Test
+  void translates_70() {
+    assertEquals("seventy", new NumberTranslator().translate(70));
+  }
+
+  @Test
+  void translates_80() {
+    assertEquals("eighty", new NumberTranslator().translate(80));
+  }
+
+  @Test
+  void translates_90() {
+    assertEquals("ninety", new NumberTranslator().translate(90));
+  }
 }
